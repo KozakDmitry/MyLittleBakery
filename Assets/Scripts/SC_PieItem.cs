@@ -13,7 +13,8 @@ public class SC_PieItem : MonoBehaviour
 
     void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
+        if(pieLevel >= 0)
+            GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
     }
 
     public void UpdatePieLevel()

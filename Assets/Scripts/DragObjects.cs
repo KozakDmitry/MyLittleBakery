@@ -22,9 +22,12 @@ public class DragObjects : MonoBehaviour
 
     private void OnMouseDown() // called when object is selected
     {
-        mouseButtonIsPressed = true;
-        offestX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
-        offestY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+        if (currentPie.GetPieLevel() >= 0)
+        {
+            mouseButtonIsPressed = true;
+            offestX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
+            offestY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
+        }
     }
 
     private void OnMouseDrag() // called when object is moving 
