@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SC_LevelManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class SC_LevelManager : MonoBehaviour
     private float currentGold;
     private float currentExperience;
 
+    private int matrixSize = 6;
+    private GameObject[,] matrixOfPies;
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
@@ -52,6 +55,7 @@ public class SC_LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        matrixOfPies = new GameObject[matrixSize, matrixSize];
         GoldCurrentTextObject = CurrentGoldText;
         ExperienceTextObject = ExperienceText;
 
@@ -63,6 +67,7 @@ public class SC_LevelManager : MonoBehaviour
 
             GameObject pieObj = Instantiate(PiePrefab);
             PieObjects.Add(pieObj);
+            FillMatrix(pieObj);
             pieObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 5);
             pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
             pieObj.GetComponent<SC_PieItem>().ClearPie();
@@ -73,7 +78,61 @@ public class SC_LevelManager : MonoBehaviour
             PieObjects[currentPie].GetComponent<SC_PieItem>().UpdatePieLevel();
         }
     }
+
+
+    public void buyCells()
+    {
+        if (currentGold > 0)
+        {
+
+        }
+    }
+
+    private void FillMatrix(GameObject pie)
+    {
+       
+
+        int centerX = matrixSize / 2;
+        int centerY = matrixSize / 2;
+
+        int currentX = centerX;
+        int currentY = centerY;
+        int length = 1;
+        int direction = 0; 
+
+        while (length < matrixSize)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                matrixOfPies[currentX, currentY] = pie;
+
+                switch (direction)
+                {
+                    case 0: 
+                        currentX++;
+                        break;
+                    case 1: 
+                        currentY--;
+                        break;
+                    case 2: 
+                        currentX--;
+                        break;
+                    case 3: 
+                        currentY++;
+                        break;
+                }
+            }
+            pie.transform.position = new Vector3((currentX), (currentY), 0);
+            direction = (direction + 1) % 4; 
+
+            if (direction == 0 || direction == 2)
+                length++; 
+        }
+
+       
+    }
 }
+
 
 /*
  # #
