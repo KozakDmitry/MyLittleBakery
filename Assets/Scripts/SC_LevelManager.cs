@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -7,7 +8,6 @@ using UnityEngine.UIElements;
 public class SC_LevelManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject[] BackgroundPosistions;
 
     [SerializeField] private GameObject BackgroundPrefab;
     [SerializeField] private GameObject PiePrefab;
@@ -27,6 +27,16 @@ public class SC_LevelManager : MonoBehaviour
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
+    private int cellCount = 4;
+
+
+    private int centerX;
+    private int centerY;
+
+    private int currentX;
+    private int currentY;
+    private int length = 1;
+    private int direction = 0;
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
@@ -55,6 +65,11 @@ public class SC_LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        centerX = matrixSize / 2;
+        centerY = matrixSize / 2;
+        currentX = centerX;
+        currentY = centerY;
+
         matrixOfPies = new GameObject[matrixSize, matrixSize];
         GoldCurrentTextObject = CurrentGoldText;
         ExperienceTextObject = ExperienceText;
@@ -63,12 +78,15 @@ public class SC_LevelManager : MonoBehaviour
         {
             GameObject backgroundObj = Instantiate(BackgroundPrefab);
             BackgroundObjects.Add(backgroundObj);
-            backgroundObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 10);
+            backgroundObj.transform.position = FillMatrix(backgroundObj);
+            Debug.Log(backgroundObj.transform.position);
+            //backgroundObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 10);
 
             GameObject pieObj = Instantiate(PiePrefab);
             PieObjects.Add(pieObj);
-            FillMatrix(pieObj);
-            pieObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 5);
+            //FillMatrix(pieObj);
+            pieObj.transform.position = new Vector3(backgroundObj.transform.position.x, backgroundObj.transform.position.y, 5);
+            //pieObj.transform.position = new Vector3(backgroundObj.transform.position.x, backgroundObj.transform.position.y, 5);
             pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
             pieObj.GetComponent<SC_PieItem>().ClearPie();
         }
@@ -88,48 +106,38 @@ public class SC_LevelManager : MonoBehaviour
         }
     }
 
-    private void FillMatrix(GameObject pie)
-    {
-       
-
-        int centerX = matrixSize / 2;
-        int centerY = matrixSize / 2;
-
-        int currentX = centerX;
-        int currentY = centerY;
-        int length = 1;
-        int direction = 0; 
-
-        while (length < matrixSize)
-        {
+    private Vector3 FillMatrix(GameObject background)
+    { 
             for (int i = 0; i < length; i++)
             {
-                matrixOfPies[currentX, currentY] = pie;
+                matrixOfPies[currentX, currentY] = background;
 
                 switch (direction)
                 {
-                    case 0: 
+                    case 0:
                         currentX++;
                         break;
-                    case 1: 
+                    case 1:
                         currentY--;
                         break;
-                    case 2: 
+                    case 2:
                         currentX--;
                         break;
-                    case 3: 
+                    case 3:
                         currentY++;
                         break;
                 }
             }
-            pie.transform.position = new Vector3((currentX), (currentY), 0);
-            direction = (direction + 1) % 4; 
+
+            direction = (direction + 1) % 4;
 
             if (direction == 0 || direction == 2)
-                length++; 
-        }
+                length++;
 
-       
+            BackgroundsCount++;
+            return new Vector3((currentX), (currentY), 0);
+           
+   
     }
 }
 
