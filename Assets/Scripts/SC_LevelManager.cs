@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -78,7 +79,18 @@ public class SC_LevelManager : MonoBehaviour
         {
             GameObject backgroundObj = Instantiate(BackgroundPrefab);
             BackgroundObjects.Add(backgroundObj);
-            backgroundObj.transform.position = FillMatrix(backgroundObj);
+            if (CheckMatrixFilled())
+            {
+                Debug.Log("OVERFLOW");
+            }
+            else
+            {
+                if (length != matrixOfPies.GetLength(0))
+                {
+                    backgroundObj.transform.position = GetNextCell(backgroundObj);
+                }
+            }
+            
             Debug.Log(backgroundObj.transform.position);
             //backgroundObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 10);
 
@@ -98,6 +110,7 @@ public class SC_LevelManager : MonoBehaviour
     }
 
 
+
     public void buyCells()
     {
         if (currentGold > 0)
@@ -106,38 +119,55 @@ public class SC_LevelManager : MonoBehaviour
         }
     }
 
-    private Vector3 FillMatrix(GameObject background)
-    { 
-            for (int i = 0; i < length; i++)
-            {
-                matrixOfPies[currentX, currentY] = background;
+    private bool CheckMatrixFilled()
+    {
 
-                switch (direction)
+        for (int y = 0; y < matrixOfPies.GetLength(0); y++)
+        {
+            for (int x = 0; x < matrixOfPies.GetLength(1); x++)
+            {
+                if (!matrixOfPies[x, y])
                 {
-                    case 0:
-                        currentX++;
-                        break;
-                    case 1:
-                        currentY--;
-                        break;
-                    case 2:
-                        currentX--;
-                        break;
-                    case 3:
-                        currentY++;
-                        break;
+                    return false; 
                 }
             }
+        }
 
-            direction = (direction + 1) % 4;
+        return true; 
+    }
+    private Vector3 GetNextCell(GameObject background)
+    { 
+     
+        switch (direction)
+        {
+            case 0:
+                currentX++;
+                break;
+            case 1:
+                currentY--;
+                break;
+            case 2:
+                currentX--;
+                break;
+            case 3:
+                currentY++;
+                break;
+        }
 
-            if (direction == 0 || direction == 2)
-                length++;
 
-            BackgroundsCount++;
-            return new Vector3((currentX), (currentY), 0);
-           
-   
+        direction = (direction + 1) % 4;
+
+        if (direction == 0 || direction == 2)
+        {
+            length++;
+        }
+        if (matrixOfPies[currentX, currentY] == null)
+        {
+            matrixOfPies[currentX, currentY] = background;
+        }
+        return new Vector3((currentX), (currentY), 0);
+       
+
     }
 }
 
