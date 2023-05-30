@@ -38,6 +38,8 @@ public class SC_LevelManager : MonoBehaviour
     private int currentY;
     private int length = 1;
     private int direction = 0;
+
+    private float spacing = 1.5f;
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
@@ -90,15 +92,12 @@ public class SC_LevelManager : MonoBehaviour
                     backgroundObj.transform.position = GetNextCell(backgroundObj);
                 }
             }
-            
-            Debug.Log(backgroundObj.transform.position);
-            //backgroundObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 10);
+
+           
 
             GameObject pieObj = Instantiate(PiePrefab);
             PieObjects.Add(pieObj);
-            //FillMatrix(pieObj);
-            pieObj.transform.position = new Vector3(backgroundObj.transform.position.x, backgroundObj.transform.position.y, 5);
-            //pieObj.transform.position = new Vector3(backgroundObj.transform.position.x, backgroundObj.transform.position.y, 5);
+            pieObj.transform.position = new Vector3(backgroundObj.transform.position.x, backgroundObj.transform.position.y, 3);
             pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
             pieObj.GetComponent<SC_PieItem>().ClearPie();
         }
@@ -153,7 +152,7 @@ public class SC_LevelManager : MonoBehaviour
                 currentY++;
                 break;
         }
-
+        
 
         direction = (direction + 1) % 4;
 
@@ -165,7 +164,11 @@ public class SC_LevelManager : MonoBehaviour
         {
             matrixOfPies[currentX, currentY] = background;
         }
-        return new Vector3((currentX), (currentY), 0);
+
+        float xPos = (currentX + background.transform.localScale.x-4.5f) * spacing;
+        float yPos = (currentY + background.transform.localScale.y-4.5f) * spacing;
+  
+        return new Vector3((xPos), (yPos), 5);
        
 
     }
