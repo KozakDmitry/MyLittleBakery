@@ -28,7 +28,6 @@ public class SC_LevelManager : MonoBehaviour
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
-    private int cellCount = 4;
 
 
     private int centerX;
@@ -36,7 +35,7 @@ public class SC_LevelManager : MonoBehaviour
 
     private int currentX;
     private int currentY;
-    private int length = 1;
+    private int length = 0;
     private int direction = 0;
 
     private float spacing = 1.5f;
@@ -164,9 +163,9 @@ public class SC_LevelManager : MonoBehaviour
         {
             matrixOfPies[currentX, currentY] = background;
         }
-
-        float xPos = (currentX + background.transform.localScale.x-4.5f) * spacing;
-        float yPos = (currentY + background.transform.localScale.y-4.5f) * spacing;
+    
+        float xPos = (length + currentX + background.transform.localScale.x-4.5f) * spacing;
+        float yPos = (length + currentY + background.transform.localScale.y-4.5f) * spacing;
   
         return new Vector3((xPos), (yPos), 5);
        
