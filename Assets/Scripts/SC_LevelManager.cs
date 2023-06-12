@@ -134,23 +134,47 @@ public class SC_LevelManager : MonoBehaviour
         return true; 
     }
     private Vector3 GetNextCell(GameObject background)
-    { 
-     
-        switch (direction)
+    {
+
+      
+        if (currentX >= 0 && currentX < matrixSize && currentY >= 0 && currentY < matrixSize)
         {
-            case 0:
-                currentX++;
-                break;
-            case 1:
-                currentY--;
-                break;
-            case 2:
-                currentX--;
-                break;
-            case 3:
-                currentY++;
-                break;
+            
+            if (matrixOfPies[currentX, currentY] == null)
+            {
+           
+                GameObject newObject = Instantiate(background, transform);
+                newObject.transform.position = GetCellPosition(currentX, currentY);
+
+               
+                matrixOfPies[currentX, currentY] = newObject;
+            }
+            else
+            {
+                Debug.Log("Ячейка уже заполнена!");
+            }
         }
+        else
+        {
+            Debug.Log("Выход за пределы матрицы!");
+        }
+
+    
+        UpdateCurrentCoordinates();
+
+  
+        if (length == 0)
+        {
+            direction = (direction + 1) % 4; 
+            if (direction == 0 || direction == 2)
+            {
+                length++; 
+            }
+        }
+
+     
+        length--;
+       
         
 
         direction = (direction + 1) % 4;
@@ -171,7 +195,36 @@ public class SC_LevelManager : MonoBehaviour
        
 
     }
+    private Vector3 GetCellPosition(int x, int y)
+    {
+
+        float offsetX = 1.0f; 
+        float offsetY = 1.0f;
+
+        return new Vector3(x * offsetX, y * offsetY, 0f);
+    }
+
+    private void UpdateCurrentCoordinates()
+    {
+        switch (direction)
+        {
+            case 0: // Вправо
+                currentX++;
+                break;
+            case 1: // Вниз
+                currentY++;
+                break;
+            case 2: // Влево
+                currentX--;
+                break;
+            case 3: // Вверх
+                currentY--;
+                break;
+        }
+    }
 }
+
+
 
 
 /*
