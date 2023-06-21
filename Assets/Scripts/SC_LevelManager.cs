@@ -78,8 +78,6 @@ public class SC_LevelManager : MonoBehaviour
 
         for (int currentBackground = 0; currentBackground < BackgroundsCount; currentBackground++)
         {
-            GameObject backgroundObj = Instantiate(BackgroundPrefab);
-            BackgroundObjects.Add(backgroundObj);
             if (CheckMatrixFilled())
             {
                 Debug.Log("OVERFLOW");
@@ -88,17 +86,13 @@ public class SC_LevelManager : MonoBehaviour
             {
                 if (length != matrixOfPies.GetLength(0))
                 {
-                    backgroundObj.transform.position = GetNextCell(backgroundObj);
+                     GetNextCell();
                 }
             }
 
            
 
-            GameObject pieObj = Instantiate(PiePrefab);
-            PieObjects.Add(pieObj);
-            pieObj.transform.position = new Vector3(backgroundObj.transform.position.x, backgroundObj.transform.position.y, 3);
-            pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
-            pieObj.GetComponent<SC_PieItem>().ClearPie();
+           
         }
 
         for (int currentPie = 0; currentPie < PlayablePieCount; currentPie++)
@@ -111,9 +105,10 @@ public class SC_LevelManager : MonoBehaviour
 
     public void buyCells()
     {
-        if (currentGold > 0)
+        if (currentGold >= BackgroundsCount*BackgroundsCount)
         {
-
+            currentGold -= BackgroundsCount*BackgroundsCount;
+            GetNextCell();
         }
     }
 
@@ -133,10 +128,13 @@ public class SC_LevelManager : MonoBehaviour
 
         return true; 
     }
-    private Vector3 GetNextCell(GameObject background)
-    {
 
-      
+
+    private void GetNextCell()
+    {
+        GameObject background = Instantiate(BackgroundPrefab);
+        BackgroundObjects.Add(background);
+
         if (currentX >= 0 && currentX < matrixSize && currentY >= 0 && currentY < matrixSize)
         {
             
@@ -190,10 +188,14 @@ public class SC_LevelManager : MonoBehaviour
     
         float xPos = (length + currentX + background.transform.localScale.x-4.5f) * spacing;
         float yPos = (length + currentY + background.transform.localScale.y-4.5f) * spacing;
-  
-        return new Vector3((xPos), (yPos), 5);
-       
 
+        background.transform.position = new Vector3((xPos), (yPos), 5);
+
+        GameObject pieObj = Instantiate(PiePrefab);
+        PieObjects.Add(pieObj);
+        pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
+        pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
+        pieObj.GetComponent<SC_PieItem>().ClearPie();
     }
     private Vector3 GetCellPosition(int x, int y)
     {
