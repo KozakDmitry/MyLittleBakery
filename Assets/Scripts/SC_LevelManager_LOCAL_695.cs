@@ -27,20 +27,6 @@ public class SC_LevelManager : MonoBehaviour
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
-<<<<<<< Updated upstream
-=======
-
-
-    private int centerX;
-    private int centerY;
-
-    private int currentX;
-    private int currentY;
-    private int length = 0;
-    private int direction = 0;
-    private int increace = 3;
-    private float spacing = 1.5f;
->>>>>>> Stashed changes
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
@@ -136,7 +122,6 @@ public class SC_LevelManager : MonoBehaviour
                         break;
                 }
             }
-<<<<<<< Updated upstream
             pie.transform.position = new Vector3((currentX), (currentY), 0);
             direction = (direction + 1) % 4; 
 
@@ -145,99 +130,6 @@ public class SC_LevelManager : MonoBehaviour
         }
 
        
-=======
-        }
-
-        return true; 
-    }
-
-
-    private void GetNextCell()
-    {
-        GameObject background = Instantiate(BackgroundPrefab);
-        BackgroundObjects.Add(background);
-
-        if (currentX >= 0 && currentX < matrixSize && currentY >= 0 && currentY < matrixSize)
-        {
-            
-            if (matrixOfPies[currentX, currentY] == null)
-            {
-
-                background.transform.position = GetCellPosition(currentX, currentY);
-
-               
-                matrixOfPies[currentX, currentY] = background;
-            }
-            else
-            {
-                Debug.Log("Ячейка уже заполнена!");
-            }
-        }
-        else
-        {
-            Debug.Log("Выход за пределы матрицы!");
-        }
-
-
-
-        float xPos = (currentX+length) * spacing;
-        float yPos = (currentY+length) * spacing;
-
-        background.transform.position = new Vector3((xPos), (yPos), 5);
-
-        GameObject pieObj = Instantiate(PiePrefab);
-        PieObjects.Add(pieObj);
-        pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
-        pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
-        pieObj.GetComponent<SC_PieItem>().ClearPie();
-
-        Debug.Log(length);
-        UpdateCurrentCoordinates();
-
-
-    }
-    private Vector3 GetCellPosition(int x, int y)
-    {
-
-        float offsetX = 1.0f; 
-        float offsetY = 1.0f;
-
-        return new Vector3(x * offsetX, y * offsetY, 0f);
-    }
-
-    private void UpdateCurrentCoordinates()
-    {
-        switch (direction)
-        {
-         
-            case 0: // Вниз
-                currentY--;
-                break;
-            case 1: // Влево
-                currentX--;
-                length = -length;
-                break;
-            case 2: // Вверх
-                currentY++;
-                break;
-            case 3: // Вправо
-                currentX++;
-                length = -length;
-                break;
-        }
-
-        direction++;
-        increace--;
-        if(increace == 0) 
-        {
-            length = length >= 0 ? length++ : length--;
-            increace = 2;
-        }
-        if(direction % 4 == 0) 
-        {
-            direction = 0;
-        }
->>>>>>> Stashed changes
     }
 }
 

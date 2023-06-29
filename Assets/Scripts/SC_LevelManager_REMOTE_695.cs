@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -7,7 +9,6 @@ using UnityEngine.UIElements;
 public class SC_LevelManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject[] BackgroundPosistions;
 
     [SerializeField] private GameObject BackgroundPrefab;
     [SerializeField] private GameObject PiePrefab;
@@ -27,8 +28,6 @@ public class SC_LevelManager : MonoBehaviour
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
-<<<<<<< Updated upstream
-=======
 
 
     private int centerX;
@@ -40,7 +39,6 @@ public class SC_LevelManager : MonoBehaviour
     private int direction = 0;
     private int increace = 3;
     private float spacing = 1.5f;
->>>>>>> Stashed changes
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
@@ -69,22 +67,32 @@ public class SC_LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        centerX = matrixSize / 2;
+        centerY = matrixSize / 2;
+        currentX = centerX;
+        currentY = centerY;
+
         matrixOfPies = new GameObject[matrixSize, matrixSize];
         GoldCurrentTextObject = CurrentGoldText;
         ExperienceTextObject = ExperienceText;
 
         for (int currentBackground = 0; currentBackground < BackgroundsCount; currentBackground++)
         {
-            GameObject backgroundObj = Instantiate(BackgroundPrefab);
-            BackgroundObjects.Add(backgroundObj);
-            backgroundObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 10);
+            if (CheckMatrixFilled())
+            {
+                Debug.Log("OVERFLOW");
+            }
+            else
+            {
+                if (length != matrixOfPies.GetLength(0))
+                {
+                     GetNextCell();
+                }
+            }
 
-            GameObject pieObj = Instantiate(PiePrefab);
-            PieObjects.Add(pieObj);
-            FillMatrix(pieObj);
-            pieObj.transform.position = new Vector3(BackgroundPosistions[currentBackground].transform.position.x, BackgroundPosistions[currentBackground].transform.position.y, 5);
-            pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
-            pieObj.GetComponent<SC_PieItem>().ClearPie();
+           
+
+           
         }
 
         for (int currentPie = 0; currentPie < PlayablePieCount; currentPie++)
@@ -94,58 +102,28 @@ public class SC_LevelManager : MonoBehaviour
     }
 
 
+
     public void buyCells()
     {
-        if (currentGold > 0)
+        if (currentGold >= BackgroundsCount*BackgroundsCount)
         {
-
+            currentGold -= BackgroundsCount*BackgroundsCount;
+            GetNextCell();
         }
     }
 
-    private void FillMatrix(GameObject pie)
+    private bool CheckMatrixFilled()
     {
-       
 
-        int centerX = matrixSize / 2;
-        int centerY = matrixSize / 2;
-
-        int currentX = centerX;
-        int currentY = centerY;
-        int length = 1;
-        int direction = 0; 
-
-        while (length < matrixSize)
+        for (int y = 0; y < matrixOfPies.GetLength(0); y++)
         {
-            for (int i = 0; i < length; i++)
+            for (int x = 0; x < matrixOfPies.GetLength(1); x++)
             {
-                matrixOfPies[currentX, currentY] = pie;
-
-                switch (direction)
+                if (!matrixOfPies[x, y])
                 {
-                    case 0: 
-                        currentX++;
-                        break;
-                    case 1: 
-                        currentY--;
-                        break;
-                    case 2: 
-                        currentX--;
-                        break;
-                    case 3: 
-                        currentY++;
-                        break;
+                    return false; 
                 }
             }
-<<<<<<< Updated upstream
-            pie.transform.position = new Vector3((currentX), (currentY), 0);
-            direction = (direction + 1) % 4; 
-
-            if (direction == 0 || direction == 2)
-                length++; 
-        }
-
-       
-=======
         }
 
         return true; 
@@ -237,9 +215,10 @@ public class SC_LevelManager : MonoBehaviour
         {
             direction = 0;
         }
->>>>>>> Stashed changes
     }
 }
+
+
 
 
 /*
