@@ -37,7 +37,7 @@ public class SC_LevelManager : MonoBehaviour
     private int currentY;
     private int length = 0;
     private int direction = 0;
-
+    private int increace = 3;
     private float spacing = 1.5f;
     public void UpdateCurrentGold(float goldToAdd)
     {
@@ -140,12 +140,11 @@ public class SC_LevelManager : MonoBehaviour
             
             if (matrixOfPies[currentX, currentY] == null)
             {
-           
-                GameObject newObject = Instantiate(background, transform);
-                newObject.transform.position = GetCellPosition(currentX, currentY);
+
+                background.transform.position = GetCellPosition(currentX, currentY);
 
                
-                matrixOfPies[currentX, currentY] = newObject;
+                matrixOfPies[currentX, currentY] = background;
             }
             else
             {
@@ -157,37 +156,10 @@ public class SC_LevelManager : MonoBehaviour
             Debug.Log("Выход за пределы матрицы!");
         }
 
-    
-        UpdateCurrentCoordinates();
 
-  
-        if (length == 0)
-        {
-            direction = (direction + 1) % 4; 
-            if (direction == 0 || direction == 2)
-            {
-                length++; 
-            }
-        }
 
-     
-        length--;
-       
-        
-
-        direction = (direction + 1) % 4;
-
-        if (direction == 0 || direction == 2)
-        {
-            length++;
-        }
-        if (matrixOfPies[currentX, currentY] == null)
-        {
-            matrixOfPies[currentX, currentY] = background;
-        }
-    
-        float xPos = (length + currentX + background.transform.localScale.x-4.5f) * spacing;
-        float yPos = (length + currentY + background.transform.localScale.y-4.5f) * spacing;
+        float xPos = (currentX+length) * spacing;
+        float yPos = (currentY+length) * spacing;
 
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
@@ -196,6 +168,11 @@ public class SC_LevelManager : MonoBehaviour
         pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
         pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
         pieObj.GetComponent<SC_PieItem>().ClearPie();
+
+        Debug.Log(length);
+        UpdateCurrentCoordinates();
+
+
     }
     private Vector3 GetCellPosition(int x, int y)
     {
@@ -210,18 +187,33 @@ public class SC_LevelManager : MonoBehaviour
     {
         switch (direction)
         {
-            case 0: // Вправо
-                currentX++;
-                break;
-            case 1: // Вниз
-                currentY++;
-                break;
-            case 2: // Влево
-                currentX--;
-                break;
-            case 3: // Вверх
+         
+            case 0: // Вниз
                 currentY--;
                 break;
+            case 1: // Влево
+                currentX--;
+                length = -length;
+                break;
+            case 2: // Вверх
+                currentY++;
+                break;
+            case 3: // Вправо
+                currentX++;
+                length = -length;
+                break;
+        }
+
+        direction++;
+        increace--;
+        if(increace == 0) 
+        {
+            length = length >= 0 ? length++ : length--;
+            increace = 2;
+        }
+        if(direction % 4 == 0) 
+        {
+            direction = 0;
         }
     }
 }
