@@ -268,7 +268,7 @@ MonoBehaviour:
   PiePrefab: {fileID: 2853950990811502824, guid: c91a65efef6f4bc42a708c4c5a28fe74, type: 3}
   CurrentGoldText: {fileID: 898768572}
   ExperienceText: {fileID: 1248424325}
-  BackgroundsCount: 7
+  BackgroundsCount: 14
   PlayablePieCount: 0
 --- !u!4 &444138793
 Transform:

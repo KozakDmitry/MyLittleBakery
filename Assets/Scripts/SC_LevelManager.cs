@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,8 +39,9 @@ public class SC_LevelManager : MonoBehaviour
     private int currentY;
     private int length = 0;
     private int direction = 0;
-    private int increace = 3;
+    private int increace = 2;
     private float spacing = 1.5f;
+    private bool timeToIncrease = false;
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
@@ -71,11 +74,15 @@ public class SC_LevelManager : MonoBehaviour
         centerY = matrixSize / 2;
         currentX = centerX;
         currentY = centerY;
-
         matrixOfPies = new GameObject[matrixSize, matrixSize];
         GoldCurrentTextObject = CurrentGoldText;
         ExperienceTextObject = ExperienceText;
+        StartCoroutine(GenerateStartField());
+       
+    }
 
+    private IEnumerator GenerateStartField()
+    {
         for (int currentBackground = 0; currentBackground < BackgroundsCount; currentBackground++)
         {
             if (CheckMatrixFilled())
@@ -84,23 +91,23 @@ public class SC_LevelManager : MonoBehaviour
             }
             else
             {
-                if (length != matrixOfPies.GetLength(0))
-                {
-                     GetNextCell();
-                }
+                GetNextCell();
+
+
             }
 
-           
+            yield return new WaitForSeconds(1f);
 
-           
+
         }
 
         for (int currentPie = 0; currentPie < PlayablePieCount; currentPie++)
         {
             PieObjects[currentPie].GetComponent<SC_PieItem>().UpdatePieLevel();
         }
-    }
 
+        
+    }
 
 
     public void buyCells()
@@ -108,6 +115,8 @@ public class SC_LevelManager : MonoBehaviour
         if (currentGold >= BackgroundsCount*BackgroundsCount)
         {
             currentGold -= BackgroundsCount*BackgroundsCount;
+            
+         
             GetNextCell();
         }
     }
@@ -132,6 +141,7 @@ public class SC_LevelManager : MonoBehaviour
 
     private void GetNextCell()
     {
+       
         GameObject background = Instantiate(BackgroundPrefab);
         BackgroundObjects.Add(background);
 
@@ -157,9 +167,11 @@ public class SC_LevelManager : MonoBehaviour
         }
 
 
+       
 
-        float xPos = (currentX+length) * spacing;
-        float yPos = (currentY+length) * spacing;
+
+        float xPos = (currentX-2.5f) * spacing;
+        float yPos = (currentY-2.5f) * spacing;
 
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
@@ -168,8 +180,6 @@ public class SC_LevelManager : MonoBehaviour
         pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
         pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
         pieObj.GetComponent<SC_PieItem>().ClearPie();
-
-        Debug.Log(length);
         UpdateCurrentCoordinates();
 
 
@@ -183,33 +193,61 @@ public class SC_LevelManager : MonoBehaviour
         return new Vector3(x * offsetX, y * offsetY, 0f);
     }
 
+ 
+
     private void UpdateCurrentCoordinates()
     {
+
+        Debug.Log(increace);
         switch (direction)
         {
          
             case 0: // ¬низ
-                currentY--;
+                currentY--;       
                 break;
             case 1: // ¬лево
                 currentX--;
-                length = -length;
                 break;
             case 2: // ¬верх
                 currentY++;
                 break;
             case 3: // ¬право
                 currentX++;
-                length = -length;
                 break;
         }
 
-        direction++;
-        increace--;
-        if(increace == 0) 
+
+        if (BackgroundObjects.Count > 4)
         {
-            length = length >= 0 ? length++ : length--;
-            increace = 2;
+            increace--;
+        }
+        else if (BackgroundObjects.Count < 4)
+        {
+            direction++;
+        }
+        else if (BackgroundObjects.Count == 4)
+        {
+            currentX++;
+            length = 2;
+            direction = 0;
+            timeToIncrease = true;
+        }
+
+
+        if (increace == 0) 
+        {
+            if (timeToIncrease)
+            {
+                length++;
+                
+                timeToIncrease = false;
+            }
+            else
+            {
+                timeToIncrease = true;
+            }
+            increace = length;
+            direction++;
         }
         if(direction % 4 == 0) 
         {
