@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class SC_LevelManager : MonoBehaviour
+public class SC_LevelManager : MonoBehaviour, ISaveable
 {
 
 
@@ -42,6 +42,16 @@ public class SC_LevelManager : MonoBehaviour
     private int increace = 2;
     private float spacing = 1.5f;
     private bool timeToIncrease = false;
+
+
+    public void Save()
+    {
+
+    }
+    public void Load()
+    {
+
+    }
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
