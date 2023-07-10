@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AdaptivePerformance.Provider;
 
-public class SC_PieItem : MonoBehaviour
+public class SC_PieItem : MonoBehaviour, ISaveable
 {
 
     [SerializeField] Sprite[] pieImages;
     [SerializeField] int pieLevel;
     [SerializeField] GameObject TextToRender;
+    private int numOfPie;
 
     private GameObject LevelManager;
     private float goldIncome;
+
+
+    public void Save() 
+    {
+
+    }
+    public void Load() 
+    {
+        
+    }
 
     public void SetLevelManager(GameObject levelManager)
     {

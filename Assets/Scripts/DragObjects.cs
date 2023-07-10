@@ -41,7 +41,7 @@ public class DragObjects : MonoBehaviour
         }
     }
 
-    private void OnMouseUp() // called when object stops to be selected
+    private void OnMouseUp() 
     {
         mouseButtonIsPressed = false;
         if (lastOverlappedPieObject)

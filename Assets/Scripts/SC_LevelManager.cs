@@ -1,9 +1,11 @@
+using SimpleJSON;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -46,7 +48,12 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
 
     public void Save()
     {
-
+        JSONObject save = new JSONObject();
+        save.Add("CountOfCells", BackgroundsCount) ;
+        SaveLoadHelp.saveFile.Add("Level", save);
+        string arrayString = string.Join(",", PieObjects);
+        PlayerPrefs.SetString("SavedPies", arrayString);
+        PlayerPrefs.Save();
     }
     public void Load()
     {
@@ -80,6 +87,7 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     // Start is called before the first frame update
     void Start()
     {
+        SaveLoadHelp.SubscribeSV(this.gameObject);
         centerX = matrixSize / 2;
         centerY = matrixSize / 2;
         currentX = centerX;
