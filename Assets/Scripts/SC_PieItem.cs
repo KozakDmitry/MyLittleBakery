@@ -13,6 +13,28 @@ public class SC_PieItem : MonoBehaviour
     private GameObject LevelManager;
     private float goldIncome;
 
+<<<<<<< Updated upstream
+=======
+    public void setNum(int num)
+    {
+        numOfPie=num;
+    }
+
+    public int getNum() 
+    {
+        return numOfPie;
+    }
+
+    public void Save() 
+    {
+
+    }
+    public void Load() 
+    {
+        
+    }
+
+>>>>>>> Stashed changes
     public void SetLevelManager(GameObject levelManager)
     {
         LevelManager = levelManager;

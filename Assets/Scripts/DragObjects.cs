@@ -47,7 +47,15 @@ public class DragObjects : MonoBehaviour
             SC_PieItem overlapPie = overlappedPieObject.GetComponent<SC_PieItem>();
             if (overlapPie.GetPieLevel() == currentPie.GetPieLevel())
             {
+<<<<<<< Updated upstream
                 overlappedPieObject.GetComponent<SC_PieItem>().UpdatePieLevel();
+=======
+                if (currentPie.getNum() < overlapPie.getNum())
+                {
+                    overlapPie.setNum(overlapPie.getNum());
+                }
+                lastOverlappedPieObject.GetComponent<SC_PieItem>().UpdatePieLevel();
+>>>>>>> Stashed changes
                 currentPie.ClearPie();
                 overlappedPieObject = null;
             }

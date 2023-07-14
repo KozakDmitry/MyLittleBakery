@@ -14,12 +14,12 @@ public class SC_LevelManager : MonoBehaviour
     [SerializeField] private GameObject CurrentGoldText;
     [SerializeField] private GameObject ExperienceText;
 
-    [SerializeField] private int BackgroundsCount;
+    [SerializeField] private int StartBackgroundsCount;
     [SerializeField] private int PlayablePieCount;
 
     private static List<GameObject> BackgroundObjects = new List<GameObject>();
     private static List<GameObject> PieObjects = new List<GameObject>();
-
+    private SC_PieItem pieScript; 
     private static GameObject GoldCurrentTextObject;
     private static GameObject ExperienceTextObject;
     private float currentGold;
@@ -38,8 +38,50 @@ public class SC_LevelManager : MonoBehaviour
     private int currentY;
     private int length = 0;
     private int direction = 0;
+<<<<<<< Updated upstream
     private int increace = 3;
     private float spacing = 1.5f;
+>>>>>>> Stashed changes
+=======
+    private int increace = 2;
+    private int currentBackground;
+    private float spacing = 1.5f;
+    private bool timeToIncrease = false;
+
+    private string arrayString;
+ 
+
+    public void Save()
+    {
+       
+        PlayerPrefs.SetInt("CountOfCells", StartBackgroundsCount) ;
+        List<int> instancesIDs = new List<int>(); 
+        foreach (GameObject obj in PieObjects) 
+        {
+            instancesIDs.Add(obj.GetInstanceID());
+        }
+        arrayString = string.Join(",", instancesIDs);
+        PlayerPrefs.SetString("SavedPies", arrayString);
+        PlayerPrefs.Save();
+    }
+    public void Load()
+    {
+        if (PlayerPrefs.GetString("SavedPies") != null)
+        {
+            arrayString = PlayerPrefs.GetString("SavedPies");
+            string[] stringArray = arrayString.Split(',');
+            PieObjects = new List<GameObject>();
+
+            foreach (string str in stringArray) 
+            {
+                int instanceID;
+                if(int.TryParse(str, out instanceID))
+                {
+                    
+                }
+            }
+        }
+    }
 >>>>>>> Stashed changes
     public void UpdateCurrentGold(float goldToAdd)
     {
@@ -73,7 +115,13 @@ public class SC_LevelManager : MonoBehaviour
         GoldCurrentTextObject = CurrentGoldText;
         ExperienceTextObject = ExperienceText;
 
+<<<<<<< Updated upstream
         for (int currentBackground = 0; currentBackground < BackgroundsCount; currentBackground++)
+=======
+    private IEnumerator GenerateStartField()
+    {
+        for (currentBackground = 0; currentBackground < StartBackgroundsCount; currentBackground++)
+>>>>>>> Stashed changes
         {
             GameObject backgroundObj = Instantiate(BackgroundPrefab);
             BackgroundObjects.Add(backgroundObj);
@@ -96,9 +144,18 @@ public class SC_LevelManager : MonoBehaviour
 
     public void buyCells()
     {
+<<<<<<< Updated upstream
         if (currentGold > 0)
         {
 
+=======
+        if (currentGold >= StartBackgroundsCount*StartBackgroundsCount)
+        {
+            currentGold -= StartBackgroundsCount*StartBackgroundsCount;
+
+            currentBackground++;
+            GetNextCell();
+>>>>>>> Stashed changes
         }
     }
 
@@ -185,8 +242,12 @@ public class SC_LevelManager : MonoBehaviour
 
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
+
+        
         GameObject pieObj = Instantiate(PiePrefab);
         PieObjects.Add(pieObj);
+        pieScript = pieObj.GetComponent<SC_PieItem>();
+        pieScript.setNum(currentBackground); 
         pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
         pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
         pieObj.GetComponent<SC_PieItem>().ClearPie();
