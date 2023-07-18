@@ -3,30 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AdaptivePerformance.Provider;
 
-public class SC_PieItem : MonoBehaviour, ISaveable
+public class SC_PieItem : MonoBehaviour
 {
 
     [SerializeField] Sprite[] pieImages;
     [SerializeField] int pieLevel;
     [SerializeField] GameObject TextToRender;
-    private int numOfPie;
-
-    private GameObject LevelManager;
+    private int pieIndex;
+    private int numOfCell;
+    private SC_LevelManager levelManager;
     private float goldIncome;
 
+    public void setCell(int cellIndex)  { numOfCell = cellIndex;  }
+    public int getCell() {  return numOfCell;}
+    public void SetIndex(int index)  { numOfCell = index; }
+    public int GetIndex() { return numOfCell; } 
 
-    public void Save() 
-    {
 
-    }
-    public void Load() 
+    public void SetLevelManager(SC_LevelManager levelManager)
     {
-        
-    }
-
-    public void SetLevelManager(GameObject levelManager)
-    {
-        LevelManager = levelManager;
+        this.levelManager = levelManager;
     }
 
     public int GetPieLevel() { return pieLevel; }
@@ -35,7 +31,7 @@ public class SC_PieItem : MonoBehaviour, ISaveable
     {
         pieLevel++;
         GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
-        LevelManager.GetComponent<SC_LevelManager>().UpdateCurrentExperience(pieLevel*2);
+        levelManager.UpdateCurrentExperience(pieLevel*2);
     }
 
     public void ClearPie()
@@ -44,7 +40,7 @@ public class SC_PieItem : MonoBehaviour, ISaveable
         CancelInvoke(nameof(AddGoldIncome));
         TextMeshIsActive(false);
         GetComponent<SpriteRenderer>().sprite = null;
-        
+        levelManager.DeletePie(this.gameObject);
     }
 
     public void SpawnPie()
@@ -52,7 +48,7 @@ public class SC_PieItem : MonoBehaviour, ISaveable
         pieLevel = 0;
         GetComponent<SpriteRenderer>().sprite = pieImages[0];
         InvokeRepeating(nameof(AddGoldIncome), 1.0f, 3.0f);
-        LevelManager.GetComponent<SC_LevelManager>().UpdateCurrentExperience(1.0f);
+        levelManager.UpdateCurrentExperience(1.0f);
     }
 
     private void AddGoldIncome()
@@ -60,12 +56,13 @@ public class SC_PieItem : MonoBehaviour, ISaveable
         goldIncome = Mathf.Pow(2, pieLevel);
         TextMeshIsActive(true);
         TextToRender.GetComponent<TextMesh>().text = goldIncome.ToString();
-        LevelManager.GetComponent<SC_LevelManager>().UpdateCurrentGold(goldIncome);
+        levelManager.UpdateCurrentGold(goldIncome);
         Invoke(nameof(DiactivateTextMesh), 1.0f);
     }
 
     private void Start()
     {
+        SaveLoadHelp.SubscribeSV(this.gameObject);
         if (pieLevel >= 0)
             GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
     }

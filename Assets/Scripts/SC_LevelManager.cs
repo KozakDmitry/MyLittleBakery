@@ -49,6 +49,12 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     public void Save()
     {
         JSONObject save = new JSONObject();
+        foreach (GameObject obj in PieObjects) 
+        {
+            obj.GetComponent<SC_PieItem>().getCell();
+        }
+
+
         save.Add("CountOfCells", BackgroundsCount) ;
         SaveLoadHelp.saveFile.Add("Level", save);
         string arrayString = string.Join(",", PieObjects);
@@ -156,6 +162,10 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
         return true; 
     }
 
+    public void DeletePie(GameObject gm)
+    {
+        PieObjects.Remove(gm);
+    }
 
     private void GetNextCell()
     {
@@ -196,7 +206,7 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
         GameObject pieObj = Instantiate(PiePrefab);
         PieObjects.Add(pieObj);
         pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
-        pieObj.GetComponent<SC_PieItem>().SetLevelManager(gameObject);
+        pieObj.GetComponent<SC_PieItem>().SetLevelManager(this);
         pieObj.GetComponent<SC_PieItem>().ClearPie();
         UpdateCurrentCoordinates();
 

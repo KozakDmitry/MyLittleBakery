@@ -49,9 +49,13 @@ public class DragObjects : MonoBehaviour
             SC_PieItem overlapPie = lastOverlappedPieObject.GetComponent<SC_PieItem>();
             if (overlapPie.GetPieLevel() == currentPie.GetPieLevel())
             {
-                lastOverlappedPieObject.GetComponent<SC_PieItem>().UpdatePieLevel();
-                currentPie.ClearPie();
-                lastOverlappedPieObject = null;
+                if (overlapPie.GetPieLevel() > currentPie.GetPieLevel())
+                {
+                    lastOverlappedPieObject.GetComponent<SC_PieItem>().UpdatePieLevel();
+                    currentPie.ClearPie();
+                    lastOverlappedPieObject = null;
+                }
+              
             }
         }
         transform.position = startPosition;
