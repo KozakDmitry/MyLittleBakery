@@ -51,7 +51,7 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
         JSONObject save = new JSONObject();
         foreach (GameObject obj in PieObjects) 
         {
-            obj.GetComponent<SC_PieItem>().getCell();
+            obj.GetComponent<SC_PieItem>().GetCell();
         }
 
 
@@ -200,17 +200,24 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
 
         float xPos = (currentX-2.5f) * spacing;
         float yPos = (currentY-2.5f) * spacing;
-
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
-        GameObject pieObj = Instantiate(PiePrefab);
-        PieObjects.Add(pieObj);
-        pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
-        pieObj.GetComponent<SC_PieItem>().SetLevelManager(this);
-        pieObj.GetComponent<SC_PieItem>().ClearPie();
+
+        GetNextPie(background);
         UpdateCurrentCoordinates();
 
 
+    }
+
+    private void GetNextPie(GameObject background)
+    {
+        GameObject pieObj = Instantiate(PiePrefab);
+        PieObjects.Add(pieObj);
+        pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
+        SC_PieItem pieItem = pieObj.GetComponent<SC_PieItem>();
+        pieItem.SetLevelManager(this);
+        pieItem.SetCell(PieObjects.IndexOf(pieObj));
+        pieItem.ClearPie();
     }
     private Vector3 GetCellPosition(int x, int y)
     {

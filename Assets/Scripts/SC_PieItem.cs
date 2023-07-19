@@ -14,8 +14,8 @@ public class SC_PieItem : MonoBehaviour
     private SC_LevelManager levelManager;
     private float goldIncome;
 
-    public void setCell(int cellIndex)  { numOfCell = cellIndex;  }
-    public int getCell() {  return numOfCell;}
+    public void SetCell(int cellIndex)  { numOfCell = cellIndex;  }
+    public int GetCell() {  return numOfCell;}
     public void SetIndex(int index)  { numOfCell = index; }
     public int GetIndex() { return numOfCell; } 
 
@@ -63,6 +63,7 @@ public class SC_PieItem : MonoBehaviour
     private void Start()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
+        SetIndex(GetInstanceID());
         if (pieLevel >= 0)
             GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
     }
