@@ -49,21 +49,27 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     public void Save()
     {
         JSONObject save = new JSONObject();
+        JSONArray arrayOfPies = new JSONArray();
         foreach (GameObject obj in PieObjects) 
         {
-            obj.GetComponent<SC_PieItem>().GetCell();
+            JSONObject jsonItem = new JSONObject();
+            SC_PieItem pieObj = obj.GetComponent<SC_PieItem>();
+            jsonItem.Add("CellNum", new JSONNumber(pieObj.GetCell()));
+            jsonItem.Add("PieIndex", new JSONNumber(pieObj.GetIndex()));
+            jsonItem.Add("PieLeve", new JSONNumber(pieObj.GetPieLevel()));
+
+            arrayOfPies.Add(jsonItem);
         }
-
-
-        save.Add("CountOfCells", BackgroundsCount) ;
-        SaveLoadHelp.saveFile.Add("Level", save);
-        string arrayString = string.Join(",", PieObjects);
-        PlayerPrefs.SetString("SavedPies", arrayString);
-        PlayerPrefs.Save();
+        save.Add("BackgroundCount", BackgroundsCount);
+        save.Add("PieList", arrayOfPies);
+        SaveLoadHelp.saveFile.Add("LevelManager", save);
+        
     }
     public void Load()
     {
-
+        JSONObject saveData = new JSONObject();
+        saveData.Add(SaveLoadHelp.saveFile["LevelManager"]);
+        BackgroundsCount = saveData["BackgroundCount"];
     }
     public void UpdateCurrentGold(float goldToAdd)
     {
