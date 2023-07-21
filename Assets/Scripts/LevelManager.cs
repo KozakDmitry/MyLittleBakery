@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class SC_LevelManager : MonoBehaviour, ISaveable
+public class LevelManager : MonoBehaviour, ISaveable
 {
 
 
@@ -22,11 +22,11 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     [SerializeField] private int BackgroundsCount;
     [SerializeField] private int PlayablePieCount;
 
-    private static List<GameObject> BackgroundObjects = new List<GameObject>();
-    private static List<GameObject> PieObjects = new List<GameObject>();
+    private List<GameObject> BackgroundObjects = new List<GameObject>();
+    private List<GameObject> PieObjects = new List<GameObject>();
 
-    private static GameObject GoldCurrentTextObject;
-    private static GameObject ExperienceTextObject;
+    private GameObject GoldCurrentTextObject;
+    private GameObject ExperienceTextObject;
     private float currentGold;
     private float currentExperience;
 
@@ -44,8 +44,6 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     private int increace = 2;
     private float spacing = 1.5f;
     private bool timeToIncrease = false;
-
-
     public void Save()
     {
         JSONObject save = new JSONObject();
@@ -68,8 +66,15 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     public void Load()
     {
         JSONObject saveData = new JSONObject();
+        
         saveData.Add(SaveLoadHelp.saveFile["LevelManager"]);
-        BackgroundsCount = saveData["BackgroundCount"];
+        if (saveData != null)
+        {
+            BackgroundsCount = saveData["BackgroundCount"];
+            
+        }
+        else {  }
+
     }
     public void UpdateCurrentGold(float goldToAdd)
     {
@@ -97,17 +102,26 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     }
 
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
+    }
+    void Start()
+    {
+
         centerX = matrixSize / 2;
         centerY = matrixSize / 2;
         currentX = centerX;
         currentY = centerY;
         matrixOfPies = new GameObject[matrixSize, matrixSize];
-        GoldCurrentTextObject = CurrentGoldText;
-        ExperienceTextObject = ExperienceText;
-        StartCoroutine(GenerateStartField());
+        if (SaveLoadHelp.continieGame == false)
+        {
+            GoldCurrentTextObject = CurrentGoldText;
+            ExperienceTextObject = ExperienceText;
+            StartCoroutine(GenerateStartField());
+        }
+       
        
     }
 
@@ -239,7 +253,6 @@ public class SC_LevelManager : MonoBehaviour, ISaveable
     private void UpdateCurrentCoordinates()
     {
 
-        Debug.Log(increace);
         switch (direction)
         {
          

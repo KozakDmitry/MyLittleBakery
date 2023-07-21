@@ -11,7 +11,7 @@ public class SC_PieItem : MonoBehaviour
     [SerializeField] GameObject TextToRender;
     private int pieIndex;
     private int numOfCell;
-    private SC_LevelManager levelManager;
+    private LevelManager levelManager;
     private float goldIncome;
 
     public void SetCell(int cellIndex)  { numOfCell = cellIndex;  }
@@ -20,7 +20,7 @@ public class SC_PieItem : MonoBehaviour
     public int GetIndex() { return numOfCell; } 
 
 
-    public void SetLevelManager(SC_LevelManager levelManager)
+    public void SetLevelManager(LevelManager levelManager)
     {
         this.levelManager = levelManager;
     }
@@ -62,7 +62,6 @@ public class SC_PieItem : MonoBehaviour
 
     private void Start()
     {
-        SaveLoadHelp.SubscribeSV(this.gameObject);
         SetIndex(GetInstanceID());
         if (pieLevel >= 0)
             GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
