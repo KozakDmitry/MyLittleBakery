@@ -16,17 +16,16 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     [SerializeField] private GameObject BackgroundPrefab;
     [SerializeField] private GameObject PiePrefab;
-    [SerializeField] private GameObject CurrentGoldText;
-    [SerializeField] private GameObject ExperienceText;
+    [SerializeField] private Text CurrentGoldText;
+    [SerializeField] private Text ExperienceText;
 
+    [SerializeField] private GoldManager GoldManager;
     [SerializeField] private int BackgroundsCount;
     [SerializeField] private int PlayablePieCount;
 
     private List<GameObject> BackgroundObjects = new List<GameObject>();
     private List<GameObject> PieObjects = new List<GameObject>();
 
-    private GameObject GoldCurrentTextObject;
-    private GameObject ExperienceTextObject;
     private float currentGold;
     private float currentExperience;
 
@@ -79,13 +78,13 @@ public class LevelManager : MonoBehaviour, ISaveable
     public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
-        GoldCurrentTextObject.GetComponent<Text>().text = currentGold.ToString();
+        CurrentGoldText.text = currentGold.ToString();
     }
 
     public void UpdateCurrentExperience(float expToAdd)
     {
         currentExperience += expToAdd;
-        ExperienceTextObject.GetComponent<Text>().text = currentExperience.ToString();
+        ExperienceText.text = currentExperience.ToString();
     }
 
     public void SpanwNewPie()
@@ -117,8 +116,8 @@ public class LevelManager : MonoBehaviour, ISaveable
         matrixOfPies = new GameObject[matrixSize, matrixSize];
         if (SaveLoadHelp.continieGame == false)
         {
-            GoldCurrentTextObject = CurrentGoldText;
-            ExperienceTextObject = ExperienceText;
+            float.TryParse(CurrentGoldText.text, out currentGold);
+            float.TryParse(ExperienceText.text, out currentExperience);
             StartCoroutine(GenerateStartField());
         }
        
