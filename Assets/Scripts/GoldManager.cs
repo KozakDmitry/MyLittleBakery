@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GoldManager : MonoBehaviour, ISaveable
 {
 
-    [SerializeField] private static Text CurrentGoldText;
-    [SerializeField] private static Text ExperienceText;
-    private static float currentGold;
-    private static float currentExperience;
+    [SerializeField] private Text CurrentGoldText;
+    [SerializeField] private Text ExperienceText;
+    private float currentGold = 0;
+    private float currentExperience = 0;
     [SerializeField] private LevelManager levelManager;
 
 
+    private static GoldManager instance = null;
+
+
+    private GoldManager()
+    {
+
+    }
+
+    public static GoldManager GetInstance()
+    {
+        return instance;
+    }
     public void Save()
     {
 
@@ -21,17 +34,19 @@ public class GoldManager : MonoBehaviour, ISaveable
     {
 
     }
-    public static void UpdateCurrentGold(float goldToAdd)
+    public void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
         CurrentGoldText.text = currentGold.ToString();
+
     }
     public float GetGold()
     {
         return currentGold;
     }
-    public static void UpdateCurrentExperience(float expToAdd)
+    public void UpdateCurrentExperience(float expToAdd)
     {
+
         currentExperience += expToAdd;
         ExperienceText.text = currentExperience.ToString();
     }
@@ -40,14 +55,21 @@ public class GoldManager : MonoBehaviour, ISaveable
     void Start()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
-        float.TryParse(CurrentGoldText.text, out currentGold);
-        float.TryParse(ExperienceText.text, out currentExperience);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance == this)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 }

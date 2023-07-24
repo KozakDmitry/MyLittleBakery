@@ -19,7 +19,6 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     [SerializeField] private GoldManager GoldManager;
     [SerializeField] private int BackgroundsCount;
-    [SerializeField] private int PlayablePieCount;
 
     private static List<GameObject> BackgroundObjects = new List<GameObject>();
     private static List<GameObject> PieObjects = new List<GameObject>();
@@ -102,10 +101,9 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     public void SpanwNewPie()
     {
-        print(PieObjects.Count);
+
         foreach (GameObject SinglePie in PieObjects)
         {
-            print(SinglePie.GetComponent<SC_PieItem>().GetPieLevel());
             if (SinglePie.GetComponent<SC_PieItem>().GetPieLevel() == -1)
             {
                 SinglePie.GetComponent<SC_PieItem>().SpawnPie();
@@ -135,11 +133,11 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         }
 
-        for (int currentPie = 0; currentPie < PlayablePieCount; currentPie++)
+        for (int currentPie = 0; currentPie < BackgroundsCount; currentPie++)
         {
             PieObjects[currentPie].GetComponent<SC_PieItem>().UpdatePieLevel();
         }
-
+        
         
     }
 

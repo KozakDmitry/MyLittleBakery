@@ -280,6 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6295efe84b105a740a232b90c318d48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentGoldText: {fileID: 898768576}
+  ExperienceText: {fileID: 1248424327}
   levelManager: {fileID: 444138792}
 --- !u!1 &444138791
 GameObject:
@@ -314,7 +316,6 @@ MonoBehaviour:
   PiePrefab: {fileID: 2853950990811502824, guid: c91a65efef6f4bc42a708c4c5a28fe74, type: 3}
   GoldManager: {fileID: 419409075}
   BackgroundsCount: 9
-  PlayablePieCount: 0
 --- !u!4 &444138793
 Transform:
   m_ObjectHideFlags: 0
