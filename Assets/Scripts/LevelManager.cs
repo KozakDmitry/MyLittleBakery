@@ -135,7 +135,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         for (int currentPie = 0; currentPie < BackgroundsCount; currentPie++)
         {
-            PieObjects[currentPie].GetComponent<SC_PieItem>().UpdatePieLevel();
+            PieObjects[currentPie].GetComponent<SC_PieItem>().SpawnPie();
         }
         
         
@@ -167,7 +167,7 @@ public class LevelManager : MonoBehaviour, ISaveable
        
         GameObject background = Instantiate(BackgroundPrefab);
         BackgroundObjects.Add(background);
-
+        
         if (currentX >= 0 && currentX < matrixSize && currentY >= 0 && currentY < matrixSize)
         {
             
@@ -193,23 +193,19 @@ public class LevelManager : MonoBehaviour, ISaveable
        
 
 
-        float xPos = (currentX-2.5f) * spacing;
-        float yPos = (currentY-2.5f) * spacing;
+        float xPos = (currentX-3f) * spacing;
+        float yPos = (currentY-3f) * spacing;
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
 
         GetNextPie(background);
         UpdateCurrentCoordinates();
-
-
     }
     public void buyCells()
     {
         if (GoldManager.GetGold() >= Mathf.Pow(BackgroundsCount, 2))
         {
             GoldManager.UpdateCurrentGold(-BackgroundsCount * BackgroundsCount);
-
-
             GetNextCell();
         }
     }

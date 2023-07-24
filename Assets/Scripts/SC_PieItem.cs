@@ -26,7 +26,7 @@ public class SC_PieItem : MonoBehaviour
     {
         pieLevel++;
         GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
-        GoldManager.GetInstance().UpdateCurrentExperience(pieLevel * 2);
+        GoldManager.GetInstance().UpdateCurrentExperience(pieLevel * 2+1);
     }
 
     public void ClearPie()

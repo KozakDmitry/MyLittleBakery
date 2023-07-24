@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,7 +53,7 @@ public class GoldManager : MonoBehaviour, ISaveable
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
         if (instance == null)
@@ -70,6 +71,6 @@ public class GoldManager : MonoBehaviour, ISaveable
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 }
