@@ -21,8 +21,8 @@ public class LevelManager : MonoBehaviour, ISaveable
     [SerializeField] private int BackgroundsCount;
     [SerializeField] private int PlayablePieCount;
 
-    private List<GameObject> BackgroundObjects = new List<GameObject>();
-    private List<GameObject> PieObjects = new List<GameObject>();
+    private static List<GameObject> BackgroundObjects = new List<GameObject>();
+    private static List<GameObject> PieObjects = new List<GameObject>();
 
 
     private int matrixSize = 6;
@@ -73,23 +73,6 @@ public class LevelManager : MonoBehaviour, ISaveable
     }
 
 
-
-
-    public void SpanwNewPie()
-    {
-        foreach (GameObject SinglePie in PieObjects)
-        {
-            print(SinglePie.GetComponent<SC_PieItem>().GetPieLevel());
-            if (SinglePie.GetComponent<SC_PieItem>().GetPieLevel() == -1)
-            {
-                SinglePie.GetComponent<SC_PieItem>().SpawnPie();
-                break;
-            }
-        }
-    }
-
-    // Start is called before the first frame update
-
     private void Awake()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
@@ -107,9 +90,30 @@ public class LevelManager : MonoBehaviour, ISaveable
 
             StartCoroutine(GenerateStartField());
         }
-       
-       
+
+
     }
+
+    public static void RemovePie(GameObject gm)
+    {
+        PieObjects.Remove(gm);
+    }
+
+
+    public void SpanwNewPie()
+    {
+        print(PieObjects.Count);
+        foreach (GameObject SinglePie in PieObjects)
+        {
+            print(SinglePie.GetComponent<SC_PieItem>().GetPieLevel());
+            if (SinglePie.GetComponent<SC_PieItem>().GetPieLevel() == -1)
+            {
+                SinglePie.GetComponent<SC_PieItem>().SpawnPie();
+                break;
+            }
+        }
+    }
+
 
     private IEnumerator GenerateStartField()
     {
@@ -159,10 +163,6 @@ public class LevelManager : MonoBehaviour, ISaveable
         return true; 
     }
 
-    public void DeletePie(GameObject gm)
-    {
-        PieObjects.Remove(gm);
-    }
 
     private void GetNextCell()
     {
@@ -207,12 +207,12 @@ public class LevelManager : MonoBehaviour, ISaveable
     }
     public void buyCells()
     {
-        if (currentGold >= Mathf.Pow(BackgroundsCount, 2);
+        if (GoldManager.GetGold() >= Mathf.Pow(BackgroundsCount, 2))
         {
-            currentGold -= BackgroundsCount * BackgroundsCount;
+            GoldManager.UpdateCurrentGold(-BackgroundsCount * BackgroundsCount);
 
 
-            levelManager.GetNextCell();
+            GetNextCell();
         }
     }
 
@@ -222,7 +222,6 @@ public class LevelManager : MonoBehaviour, ISaveable
         PieObjects.Add(pieObj);
         pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
         SC_PieItem pieItem = pieObj.GetComponent<SC_PieItem>();
-        pieItem.SetLevelManager(this);
         pieItem.SetCell(PieObjects.IndexOf(pieObj));
         pieItem.ClearPie();
     }

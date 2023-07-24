@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419409073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0977491, y: -0.34080514, z: 60.092167}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,8 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BackgroundPrefab: {fileID: 9013716704979425616, guid: e2a66a28a39e8c844bd1fa215d13400b, type: 3}
   PiePrefab: {fileID: 2853950990811502824, guid: c91a65efef6f4bc42a708c4c5a28fe74, type: 3}
-  CurrentGoldText: {fileID: 898768572}
-  ExperienceText: {fileID: 1248424325}
+  GoldManager: {fileID: 419409075}
   BackgroundsCount: 9
   PlayablePieCount: 0
 --- !u!4 &444138793

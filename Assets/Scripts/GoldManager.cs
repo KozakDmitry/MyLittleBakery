@@ -3,27 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GoldManager : MonoBehaviour
+public class GoldManager : MonoBehaviour, ISaveable
 {
 
-    [SerializeField] private Text CurrentGoldText;
-    [SerializeField] private Text ExperienceText;
-    private float currentGold;
-    private float currentExperience;
+    [SerializeField] private static Text CurrentGoldText;
+    [SerializeField] private static Text ExperienceText;
+    private static float currentGold;
+    private static float currentExperience;
     [SerializeField] private LevelManager levelManager;
-    
-    
-    
-    public void UpdateCurrentGold(float goldToAdd)
+
+
+    public void Save()
+    {
+
+    }
+    public void Load()
+    {
+
+    }
+    public static void UpdateCurrentGold(float goldToAdd)
     {
         currentGold += goldToAdd;
         CurrentGoldText.text = currentGold.ToString();
     }
-    public void GetGold()
+    public float GetGold()
     {
-
+        return currentGold;
     }
-    public void UpdateCurrentExperience(float expToAdd)
+    public static void UpdateCurrentExperience(float expToAdd)
     {
         currentExperience += expToAdd;
         ExperienceText.text = currentExperience.ToString();
@@ -32,6 +39,7 @@ public class GoldManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SaveLoadHelp.SubscribeSV(this.gameObject);
         float.TryParse(CurrentGoldText.text, out currentGold);
         float.TryParse(ExperienceText.text, out currentExperience);
     }
