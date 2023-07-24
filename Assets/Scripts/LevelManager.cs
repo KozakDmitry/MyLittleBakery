@@ -16,8 +16,6 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     [SerializeField] private GameObject BackgroundPrefab;
     [SerializeField] private GameObject PiePrefab;
-    [SerializeField] private Text CurrentGoldText;
-    [SerializeField] private Text ExperienceText;
 
     [SerializeField] private GoldManager GoldManager;
     [SerializeField] private int BackgroundsCount;
@@ -26,8 +24,6 @@ public class LevelManager : MonoBehaviour, ISaveable
     private List<GameObject> BackgroundObjects = new List<GameObject>();
     private List<GameObject> PieObjects = new List<GameObject>();
 
-    private float currentGold;
-    private float currentExperience;
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
@@ -75,17 +71,9 @@ public class LevelManager : MonoBehaviour, ISaveable
         else {  }
 
     }
-    public void UpdateCurrentGold(float goldToAdd)
-    {
-        currentGold += goldToAdd;
-        CurrentGoldText.text = currentGold.ToString();
-    }
 
-    public void UpdateCurrentExperience(float expToAdd)
-    {
-        currentExperience += expToAdd;
-        ExperienceText.text = currentExperience.ToString();
-    }
+
+
 
     public void SpanwNewPie()
     {
@@ -116,8 +104,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         matrixOfPies = new GameObject[matrixSize, matrixSize];
         if (SaveLoadHelp.continieGame == false)
         {
-            float.TryParse(CurrentGoldText.text, out currentGold);
-            float.TryParse(ExperienceText.text, out currentExperience);
+
             StartCoroutine(GenerateStartField());
         }
        
@@ -153,16 +140,7 @@ public class LevelManager : MonoBehaviour, ISaveable
     }
 
 
-    public void buyCells()
-    {
-        if (currentGold >= BackgroundsCount*BackgroundsCount)
-        {
-            currentGold -= BackgroundsCount*BackgroundsCount;
-            
-         
-            GetNextCell();
-        }
-    }
+   
 
     private bool CheckMatrixFilled()
     {
@@ -226,6 +204,16 @@ public class LevelManager : MonoBehaviour, ISaveable
         UpdateCurrentCoordinates();
 
 
+    }
+    public void buyCells()
+    {
+        if (currentGold >= Mathf.Pow(BackgroundsCount, 2);
+        {
+            currentGold -= BackgroundsCount * BackgroundsCount;
+
+
+            levelManager.GetNextCell();
+        }
     }
 
     private void GetNextPie(GameObject background)
