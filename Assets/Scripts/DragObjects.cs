@@ -48,15 +48,18 @@ public class DragObjects : MonoBehaviour
         {
             SC_PieItem overlapPie = lastOverlappedPieObject.GetComponent<SC_PieItem>();
             if (overlapPie.GetPieLevel() == currentPie.GetPieLevel())
-            {
-                if (overlapPie.GetIndex() >= currentPie.GetIndex())
-                {
-                    overlapPie.SetIndex(currentPie.GetIndex());
-                }           
+            {    
                 overlapPie.GetComponent<SC_PieItem>().UpdatePieLevel();    
                 currentPie.ClearPie();
                 lastOverlappedPieObject = null;
             }
+            else if (overlapPie.GetPieLevel() == -1)
+            {
+                overlapPie.GetComponent<SC_PieItem>().SpawnPie(currentPie.GetPieLevel());
+                currentPie.ClearPie();
+                lastOverlappedPieObject = null;
+            }
+
         }
         transform.position = startPosition;
     }
@@ -65,15 +68,10 @@ public class DragObjects : MonoBehaviour
     {
         if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAObject))
         {
-            if (isAObject.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel())
+            if (isAObject.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel() || isAObject.GetPieLevel()==-1)
             {
                 lastOverlappedPieObject = collision.gameObject;
                 allOverlappedPieObject.Add(lastOverlappedPieObject);
-            }
-            else if (isAObject.tag == "BackgroundLayer")
-            {
-                lastOverLappedBack = collision.gameObject;
-
             }
         }
     }

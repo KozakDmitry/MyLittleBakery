@@ -38,10 +38,10 @@ public class SC_PieItem : MonoBehaviour
         //RemovePie(this.gameObject);
     }
 
-    public void SpawnPie()
+    public void SpawnPie(int level =0)
     {
-        pieLevel = 0;
-        GetComponent<SpriteRenderer>().sprite = pieImages[0];
+        pieLevel = level;
+        GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
         InvokeRepeating(nameof(AddGoldIncome), 1.0f, 3.0f);
         GoldManager.GetInstance().UpdateCurrentExperience(1.0f);
     }

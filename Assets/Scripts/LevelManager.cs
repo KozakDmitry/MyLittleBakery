@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
     [SerializeField] private GameObject BackgroundPrefab;
-    [SerializeField] private GameObject PiePrefab;
+    //[SerializeField] private GameObject PiePrefab;
 
     [SerializeField] private GoldManager GoldManager;
     [SerializeField] private int BackgroundsCount;
@@ -198,7 +198,11 @@ public class LevelManager : MonoBehaviour, ISaveable
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
 
-        GetNextPie(background);
+        SC_PieItem pieItem = background.transform.GetChild(0).gameObject.GetComponent<SC_PieItem>();
+        PieObjects.Add(background.transform.GetChild(0).gameObject); ;
+        pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
+        pieItem.ClearPie();
+
         UpdateCurrentCoordinates();
     }
     public void buyCells()
@@ -210,15 +214,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         }
     }
 
-    private void GetNextPie(GameObject background)
-    {
-        GameObject pieObj = Instantiate(PiePrefab,new Vector3(background.transform.position.x, background.transform.position.y, 3),Quaternion.identity);
-        PieObjects.Add(pieObj);
-        //pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
-        SC_PieItem pieItem = pieObj.GetComponent<SC_PieItem>();
-        pieItem.SetCell(PieObjects.IndexOf(pieObj));
-        pieItem.ClearPie();
-    }
+    
     private Vector3 GetCellPosition(int x, int y)
     {
 

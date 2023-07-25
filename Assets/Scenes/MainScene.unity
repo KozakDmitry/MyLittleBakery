@@ -194,7 +194,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 3
@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackgroundPrefab: {fileID: 9013716704979425616, guid: e2a66a28a39e8c844bd1fa215d13400b, type: 3}
-  PiePrefab: {fileID: 2853950990811502824, guid: c91a65efef6f4bc42a708c4c5a28fe74, type: 3}
   GoldManager: {fileID: 419409075}
   BackgroundsCount: 9
 --- !u!4 &444138793
@@ -620,7 +619,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -692,7 +691,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
@@ -841,7 +840,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 3
