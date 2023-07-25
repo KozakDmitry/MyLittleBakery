@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.U2D.Path;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -78,7 +79,7 @@ public class DragObjects : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (mouseButtonIsPressed)
+        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAObject) && isAObject.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel())
         {
             allOverlappedPieObject.Remove(collision.gameObject);
             if (allOverlappedPieObject.Count > 0)
