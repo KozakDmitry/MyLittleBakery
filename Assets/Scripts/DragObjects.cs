@@ -11,7 +11,7 @@ public class DragObjects : MonoBehaviour
     private float offestX, offestY;
     private bool mouseButtonIsPressed;
     private Vector3 startPosition;
-    private static GameObject lastOverlappedPieObject;
+    private static GameObject lastOverlappedPieObject,lastOverLappedBack;
     private static List<GameObject> allOverlappedPieObject = new List<GameObject>();
     private SC_PieItem currentPie;
 
@@ -63,25 +63,30 @@ public class DragObjects : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAPie) && isAPie.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel())
+        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAObject))
         {
-            lastOverlappedPieObject = collision.gameObject;
-            allOverlappedPieObject.Add(lastOverlappedPieObject);
-            print("Enter " + collision.gameObject.name.ToString());
+            if (isAObject.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel())
+            {
+                lastOverlappedPieObject = collision.gameObject;
+                allOverlappedPieObject.Add(lastOverlappedPieObject);
+            }
+            else if (isAObject.tag == "BackgroundLayer")
+            {
+                lastOverLappedBack = collision.gameObject;
+
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAPie) && isAPie.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel())
+        if (mouseButtonIsPressed)
         {
-
             allOverlappedPieObject.Remove(collision.gameObject);
             if (allOverlappedPieObject.Count > 0)
                 lastOverlappedPieObject = allOverlappedPieObject.Last();
             else
                 lastOverlappedPieObject = null;
-            print("Exit " + collision.gameObject);
         }
     }
 }

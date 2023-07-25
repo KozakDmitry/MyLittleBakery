@@ -212,9 +212,9 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     private void GetNextPie(GameObject background)
     {
-        GameObject pieObj = Instantiate(PiePrefab);
+        GameObject pieObj = Instantiate(PiePrefab,new Vector3(background.transform.position.x, background.transform.position.y, 3),Quaternion.identity);
         PieObjects.Add(pieObj);
-        pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
+        //pieObj.transform.position = new Vector3(background.transform.position.x, background.transform.position.y, 3);
         SC_PieItem pieItem = pieObj.GetComponent<SC_PieItem>();
         pieItem.SetCell(PieObjects.IndexOf(pieObj));
         pieItem.ClearPie();
