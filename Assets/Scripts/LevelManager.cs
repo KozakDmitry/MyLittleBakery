@@ -1,6 +1,7 @@
 using SimpleJSON;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Unity.PlasticSCM.Editor.WebApi;
@@ -98,18 +99,34 @@ public class LevelManager : MonoBehaviour, ISaveable
         PieObjects.Remove(gm);
     }
 
-
-    public void SpanwNewPie()
+    private List<int> AvailableCells()
     {
-
+        List<int> cells = new List<int>();
         foreach (GameObject SinglePie in PieObjects)
         {
             if (SinglePie.GetComponent<SC_PieItem>().GetPieLevel() == -1)
             {
-                SinglePie.GetComponent<SC_PieItem>().SpawnPie();
-                break;
+                cells.Add(PieObjects.IndexOf(SinglePie));
             }
+
         }
+       
+        return cells;
+        
+    }
+
+    public void SpanwNewPie()
+    {
+        List<int> cells = AvailableCells();
+        if (cells.Count > 0)
+        {
+            PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<SC_PieItem>().SpawnPie();
+        }
+        else
+        {
+            Debug.Log("No problems");
+        }
+
     }
 
 
@@ -205,6 +222,10 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         UpdateCurrentCoordinates();
     }
+
+
+
+
     public void buyCells()
     {
         if (GoldManager.GetGold() >= Mathf.Pow(BackgroundsCount, 2))
