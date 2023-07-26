@@ -23,7 +23,7 @@ public class DragObjects : MonoBehaviour
         currentPie = GetComponent<SC_PieItem>();
     }
 
-    private void OnMouseDown() // called when object is selected
+    private void OnMouseDown() 
     {
         if (currentPie.GetPieLevel() >= 0)
         {
@@ -33,7 +33,7 @@ public class DragObjects : MonoBehaviour
         }
     }
 
-    private void OnMouseDrag() // called when object is moving 
+    private void OnMouseDrag() 
     {
         if (mouseButtonIsPressed)
         {

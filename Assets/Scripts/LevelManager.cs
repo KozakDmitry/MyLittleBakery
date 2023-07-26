@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
     [SerializeField] private GameObject BackgroundPrefab;
-    //[SerializeField] private GameObject PiePrefab;
 
     [SerializeField] private GoldManager GoldManager;
     [SerializeField] private int BackgroundsCount;
@@ -29,15 +28,15 @@ public class LevelManager : MonoBehaviour, ISaveable
     private GameObject[,] matrixOfPies;
 
 
-    private int centerX;
-    private int centerY;
+    private int centerX, centerY;
 
-    private int currentX;
-    private int currentY;
+
+    private int currentX, currentY;
     private int length = 0;
     private int direction = 0;
     private int increace = 2;
-    private float spacing = 1.5f;
+    private int numToAdapt = 9;
+    private float spacing = 1.5f, size=1,deacreaseSize = 0.2f;
     private bool timeToIncrease = false;
     public void Save()
     {
@@ -129,6 +128,20 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     }
 
+    private void AdaptPies()
+    {
+        if (BackgroundObjects.Count > numToAdapt)
+        {
+            size-= deacreaseSize;
+            spacing -= deacreaseSize;
+            foreach (GameObject item in BackgroundObjects)
+            {
+                item.transform.localScale *= size;
+                item.transform.position *= (1/(spacing+deacreaseSize))*spacing;
+            }
+            numToAdapt = Extentions.Pow(((int)Mathf.Sqrt(numToAdapt) + 1), 2);
+        }
+    }
 
     private IEnumerator GenerateStartField()
     {
@@ -141,8 +154,6 @@ public class LevelManager : MonoBehaviour, ISaveable
             else
             {
                 GetNextCell();
-
-
             }
 
             yield return new WaitForSeconds(0f);
@@ -181,10 +192,10 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     private void GetNextCell()
     {
-       
+        
         GameObject background = Instantiate(BackgroundPrefab);
         BackgroundObjects.Add(background);
-        
+   
         if (currentX >= 0 && currentX < matrixSize && currentY >= 0 && currentY < matrixSize)
         {
             
@@ -212,6 +223,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         float xPos = (currentX-3f) * spacing;
         float yPos = (currentY-3f) * spacing;
+        background.transform.localScale *= size;
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
 
@@ -220,6 +232,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
         pieItem.ClearPie();
 
+        AdaptPies();
         UpdateCurrentCoordinates();
     }
 
