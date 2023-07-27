@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         foreach (GameObject obj in PieObjects) 
         {
             JSONObject jsonItem = new JSONObject();
-            SC_PieItem pieObj = obj.GetComponent<SC_PieItem>();
+            PieItem pieObj = obj.GetComponent<PieItem>();
             jsonItem.Add("CellNum", new JSONNumber(pieObj.GetCell()));
             jsonItem.Add("PieIndex", new JSONNumber(pieObj.GetIndex()));
             jsonItem.Add("PieLeve", new JSONNumber(pieObj.GetPieLevel()));
@@ -98,7 +98,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         List<int> cells = new List<int>();
         foreach (GameObject SinglePie in PieObjects)
         {
-            if (SinglePie.GetComponent<SC_PieItem>().GetPieLevel() == -1)
+            if (SinglePie.GetComponent<PieItem>().GetPieLevel() == -1)
             {
                 cells.Add(PieObjects.IndexOf(SinglePie));
             }
@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         List<int> cells = AvailableCells();
         if (cells.Count > 0)
         {
-            PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<SC_PieItem>().SpawnPie();
+            PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie();
         }
         else
         {
@@ -158,7 +158,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         for (int currentPie = 0; currentPie < BackgroundsCount; currentPie++)
         {
-            PieObjects[currentPie].GetComponent<SC_PieItem>().SpawnPie();
+            PieObjects[currentPie].GetComponent<PieItem>().SpawnPie();
         }
         
         
@@ -222,7 +222,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         background.transform.position = new Vector3((xPos), (yPos), 5);
 
 
-        SC_PieItem pieItem = background.transform.GetChild(0).gameObject.GetComponent<SC_PieItem>();
+        PieItem pieItem = background.transform.GetChild(0).gameObject.GetComponent<PieItem>();
         PieObjects.Add(background.transform.GetChild(0).gameObject); ;
         pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
         pieItem.ClearPie();

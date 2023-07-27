@@ -736,6 +736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 628661107}
+  - component: {fileID: 628661108}
   m_Layer: 5
   m_Name: SettingsUI
   m_TagString: Untagged
@@ -766,6 +767,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &628661108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628661106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefa96418453a6e4e8075ddd49ed7467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 95c8af4f367366b4ea3799232f9e45cb, type: 3}
+  - {fileID: 21300000, guid: 49c37f0bc3111c14cb62f0010823c2cd, type: 3}
 --- !u!1 &660451362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,9 +1656,13 @@ MonoBehaviour:
   volumeSprites:
   - {fileID: 21300000, guid: 95c8af4f367366b4ea3799232f9e45cb, type: 3}
   - {fileID: 21300000, guid: 49c37f0bc3111c14cb62f0010823c2cd, type: 3}
+  shopSprites:
+  - {fileID: 21300000, guid: de39d62a6e6d5f8419bfbad9b8fa4527, type: 3}
+  - {fileID: 21300000, guid: a004abcf6470a114985e489e87b3b422, type: 3}
   audioMenu: {fileID: 0}
-  firsUI: {fileID: 0}
-  playUI: {fileID: 0}
+  firstUI: {fileID: 54998865}
+  playUI: {fileID: 2071911100}
+  settingsUI: {fileID: 628661106}
   audioSlider: {fileID: 0}
 --- !u!4 &1972607883
 Transform:

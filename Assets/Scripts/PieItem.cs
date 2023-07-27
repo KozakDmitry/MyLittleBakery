@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AdaptivePerformance.Provider;
 
-public class SC_PieItem : MonoBehaviour
+public class PieItem : MonoBehaviour
 {
 
     [SerializeField] Sprite[] pieImages;

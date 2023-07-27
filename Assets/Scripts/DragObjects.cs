@@ -14,13 +14,13 @@ public class DragObjects : MonoBehaviour
     private Vector3 startPosition;
     private static GameObject lastOverlappedPieObject,lastOverLappedBack;
     private static List<GameObject> allOverlappedPieObject = new List<GameObject>();
-    private SC_PieItem currentPie;
+    private PieItem currentPie;
 
     private void Start()
     {
         mouseButtonIsPressed = false;
         startPosition = transform.position;
-        currentPie = GetComponent<SC_PieItem>();
+        currentPie = GetComponent<PieItem>();
     }
 
     private void OnMouseDown() 
@@ -47,16 +47,16 @@ public class DragObjects : MonoBehaviour
         mouseButtonIsPressed = false;
         if (lastOverlappedPieObject)
         {
-            SC_PieItem overlapPie = lastOverlappedPieObject.GetComponent<SC_PieItem>();
+            PieItem overlapPie = lastOverlappedPieObject.GetComponent<PieItem>();
             if (overlapPie.GetPieLevel() == currentPie.GetPieLevel())
             {    
-                overlapPie.GetComponent<SC_PieItem>().UpdatePieLevel();    
+                overlapPie.GetComponent<PieItem>().UpdatePieLevel();    
                 currentPie.ClearPie();
                 lastOverlappedPieObject = null;
             }
             else if (overlapPie.GetPieLevel() == -1)
             {
-                overlapPie.GetComponent<SC_PieItem>().SpawnPie(currentPie.GetPieLevel());
+                overlapPie.GetComponent<PieItem>().SpawnPie(currentPie.GetPieLevel());
                 currentPie.ClearPie();
                 lastOverlappedPieObject = null;
             }
@@ -67,9 +67,9 @@ public class DragObjects : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAObject))
+        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out PieItem isAObject))
         {
-            if (isAObject.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel() || isAObject.GetPieLevel()==-1)
+            if (isAObject.GetPieLevel() == gameObject.GetComponent<PieItem>().GetPieLevel() || isAObject.GetPieLevel()==-1)
             {
                 lastOverlappedPieObject = collision.gameObject;
                 allOverlappedPieObject.Add(lastOverlappedPieObject);
@@ -79,7 +79,7 @@ public class DragObjects : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out SC_PieItem isAObject) && isAObject.GetPieLevel() == gameObject.GetComponent<SC_PieItem>().GetPieLevel())
+        if (mouseButtonIsPressed && collision.gameObject.TryGetComponent(out PieItem isAObject) && isAObject.GetPieLevel() == gameObject.GetComponent<PieItem>().GetPieLevel())
         {
             allOverlappedPieObject.Remove(collision.gameObject);
             if (allOverlappedPieObject.Count > 0)

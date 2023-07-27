@@ -10,10 +10,9 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] AudioMixer audioMixer;
-    [SerializeField] Sprite[] volumeSprites;
+    [SerializeField] Sprite[] volumeSprites,shopSprites;
     [SerializeField] AudioSource audioMenu;
-    [SerializeField] private GameObject firsUI;
-    [SerializeField] private GameObject playUI;
+    [SerializeField] private GameObject firstUI,playUI,settingsUI;
     [SerializeField] private Slider audioSlider;
     private void Start()
     {
@@ -27,18 +26,24 @@ public class MenuManager : MonoBehaviour
     }
     public void Play()
     {
-        firsUI.SetActive(false);
+        firstUI.SetActive(false);
         playUI.SetActive(true);
     }
     
     public void BackToMain(GameObject gm)
     {
         gm.SetActive(false);
-        firsUI.SetActive(true);
+        firstUI.SetActive(true);
     }
     public void Settings()
     {
+        firstUI.SetActive(false);
+        settingsUI.SetActive(true);
+    }
 
+    public void OpenShop(Image image)
+    {
+        
     }
 
     public void SwitchVolume(Image image)
@@ -54,6 +59,8 @@ public class MenuManager : MonoBehaviour
         audioMenu.mute = !audioMenu.mute;
         
     }
+
+    
 
     public void Exit()
     {
