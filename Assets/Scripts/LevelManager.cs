@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
     private int centerX, centerY;
-
+    private static int highestLevel = -1;
 
     private int currentX, currentY;
     private int length = 0;
@@ -109,12 +109,12 @@ public class LevelManager : MonoBehaviour, ISaveable
         
     }
 
-    public void SpanwNewPie()
+    public void SpanwNewPie(int pieLevel =0)
     {
         List<int> cells = AvailableCells();
         if (cells.Count > 0)
         {
-            PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie();
+            PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie(pieLevel);
         }
         else
         {
@@ -122,7 +122,18 @@ public class LevelManager : MonoBehaviour, ISaveable
         }
 
     }
+    public static void CheckHighestLevel(int high)
+    {
+        if (high > highestLevel)
+        {
+            highestLevel = high;
+        }        
+    }
 
+    public static int GetHighestLevel()
+    {
+        return highestLevel;
+    }
     private void AdaptPies()
     {
         if (BackgroundObjects.Count > numToAdapt)

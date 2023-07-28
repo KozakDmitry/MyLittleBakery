@@ -27,6 +27,7 @@ public class PieItem : MonoBehaviour
         pieLevel++;
         GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
         GoldManager.GetInstance().UpdateCurrentExperience(pieLevel * 2+1);
+        LevelManager.CheckHighestLevel(pieLevel);
     }
 
     public void ClearPie()

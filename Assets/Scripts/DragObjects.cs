@@ -12,7 +12,7 @@ public class DragObjects : MonoBehaviour
     private float offestX, offestY;
     private bool mouseButtonIsPressed;
     private Vector3 startPosition;
-    private static GameObject lastOverlappedPieObject,lastOverLappedBack;
+    private static GameObject lastOverlappedPieObject;
     private static List<GameObject> allOverlappedPieObject = new List<GameObject>();
     private PieItem currentPie;
 
