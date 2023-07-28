@@ -2,6 +2,7 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour,ISaveable
 {
@@ -14,9 +15,12 @@ public class ShopManager : MonoBehaviour,ISaveable
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
     }
-    public void BuyPie(int pielevel)
+    public void BuyPie(ShopElement element)
     {
-        
+        if (GoldManager.GetInstance().GetGold() > element.GetCost())
+        {
+            GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost());
+        }
     }
     public void Save()
     {
@@ -28,14 +32,14 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     void Start()
     {
-        
+        GenerateFirstShop();
     }
     private void GenerateFirstShop()
     {
         for (int i = 0; i < LevelManager.GetHighestLevel()-3; i++)
         {
             GameObject gm = Instantiate(shopElement, this.transform);
-
+            gm.GetComponent<Button>().onClick.AddListener(()=>BuyPie(gm.GetComponent<ShopElement>()));
         }
     }
     // Update is called once per frame

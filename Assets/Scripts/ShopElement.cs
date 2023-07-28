@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class ShopElement : MonoBehaviour
 {
+    private int levelOfPie;
+    private int cost;
 
+
+    public void SetCost(int cost) { this.cost = cost; }
+    public int GetCost() { return cost; }
+    public void SetLevelOfPie(int level)  {  levelOfPie = level;  }
+    public int GetLevelOfPie()  {  return levelOfPie;   }
     void Start()
     {
         
