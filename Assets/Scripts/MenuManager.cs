@@ -58,10 +58,9 @@ public class MenuManager : MonoBehaviour
         settingsUI.SetActive(true);
     }
 
-    public void OpenShop(GameObject shop)
+    public void OpenElement(GameObject element)
     {
-        shop.SetActive(!shop.activeSelf);
-
+        element.SetActive(!element.activeSelf);
     }
 
     public void SwitchVolume(Image image)
@@ -78,8 +77,11 @@ public class MenuManager : MonoBehaviour
         
     }
 
-    
+    public void ToExitMenu(GameObject gm)
+    {
 
+    }
+    
     public void Exit()
     {
         Application.Quit();
