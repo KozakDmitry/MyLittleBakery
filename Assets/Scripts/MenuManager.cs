@@ -24,7 +24,24 @@ public class MenuManager : MonoBehaviour
     {
         SaveLoadHelp.SaveAllData();
     }
-    public void Play()
+
+    public void Play(int k)
+    {
+        switch (k)
+        {
+            case 0:
+                SaveLoadHelp.continieGame = false;
+                break;
+            case 1:
+                SaveLoadHelp.continieGame = true;
+                break;
+            default:
+                SaveLoadHelp.continieGame = true;
+                break;
+        }
+        SceneManager.LoadScene("MainScene");
+    }
+    public void ChangeToPlayUI()
     {
         firstUI.SetActive(false);
         playUI.SetActive(true);
@@ -41,9 +58,10 @@ public class MenuManager : MonoBehaviour
         settingsUI.SetActive(true);
     }
 
-    public void OpenShop(Image image)
+    public void OpenShop(GameObject shop)
     {
-        
+        shop.SetActive(!shop.activeSelf);
+
     }
 
     public void SwitchVolume(Image image)
