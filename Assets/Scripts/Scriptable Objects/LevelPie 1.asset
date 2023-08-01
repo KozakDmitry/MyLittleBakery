@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9d182c5c9242b4aa0a91c63dab55d9, type: 3}
   m_Name: LevelPie 1
   m_EditorClassIdentifier: 
-  nameElement: 
-  sprite: {fileID: 0}
-  level: 0
+  nameElement: Pie1
+  sprite: {fileID: 21300000, guid: e7c7670323a5c5a499da1acf26d22e69, type: 3}
+  level: 1
+  cost: 10

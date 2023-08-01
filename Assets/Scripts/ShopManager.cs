@@ -10,7 +10,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     [SerializeField] private ScriptableShop[] pies;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private GameObject shopElement;
-    private int maxValue;
+    private int maxValue=0;
     private bool onDecreace = false,onIncreace = false;
     private List<GameObject> shopPies = new List<GameObject>();
 
@@ -22,6 +22,8 @@ public class ShopManager : MonoBehaviour,ISaveable
 
     private void OnGoldValueChanged(float newValue)
     {
+        onDecreace = false;
+        onIncreace = false;
         do
         {
             if (newValue > pies[maxValue].cost && !onDecreace && maxValue<=pies.Count())
@@ -87,6 +89,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     void Start()
     {
+        
         GenerateFirstShop();
     }
     private void GenerateFirstShop()
@@ -94,6 +97,10 @@ public class ShopManager : MonoBehaviour,ISaveable
         for (int i = 0; i < pies.Count(); i++)
         {
             GameObject gm = Instantiate(shopElement, this.transform);
+            ShopElement shop = gm.GetComponent<ShopElement>();
+            shop.SetName(pies[i].name);
+            shop.SetCost(pies[i].cost);
+            shop.SetLevelOfPie(pies[i].level);        
             gm.GetComponent<Button>().onClick.AddListener(()=>BuyPie(gm.GetComponent<ShopElement>()));
             shopPies.Add(gm);
         }
