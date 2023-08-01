@@ -9,7 +9,7 @@ public class ShopElement : MonoBehaviour
     private int cost;
     [SerializeField] private GameObject blockElement;
 
-
+    public GameObject getBlockElement() { return blockElement; }
     public void SetCost(int cost) { this.cost = cost; }
     public int GetCost() { return cost; }
     public void SetLevelOfPie(int level)  {  levelOfPie = level;  }

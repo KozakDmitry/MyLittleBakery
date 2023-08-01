@@ -9,5 +9,5 @@ public class ScriptableShop : ScriptableObject
     public string nameElement;
     public Sprite sprite;
     public int level;
-
+    public int cost;
 }

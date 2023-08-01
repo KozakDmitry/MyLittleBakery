@@ -16,6 +16,21 @@ public class GoldManager : MonoBehaviour, ISaveable
     [SerializeField] private LevelManager levelManager;
 
 
+
+    public delegate void ValueChangedEventHandler(float newValue);
+    public static event ValueChangedEventHandler GoldValueChanged;
+
+
+
+
+    private static void OnValueChanged(float newValue)
+    {
+        if (GoldValueChanged != null)
+        {
+            GoldValueChanged(newValue);
+        }
+    }
+
     private static GoldManager instance = null;
 
 
@@ -40,7 +55,7 @@ public class GoldManager : MonoBehaviour, ISaveable
     {
         currentGold += goldToAdd;
         CurrentGoldText.text = currentGold.ToString();
-
+        OnValueChanged(currentGold);
     }
     public float GetGold()
     {
