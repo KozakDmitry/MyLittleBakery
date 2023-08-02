@@ -26,12 +26,12 @@ public class ShopManager : MonoBehaviour,ISaveable
         onIncreace = false;
         do
         {
-            if (newValue > pies[maxValue].cost && !onDecreace && maxValue<=pies.Count())
+            if (newValue >= pies[maxValue].cost && !onDecreace && maxValue<pies.Count())
             {
                 maxValue++;
                 onIncreace = true;
             }
-            else if (newValue < pies[maxValue].cost&&!onIncreace && maxValue>=0)
+            else if (newValue < pies[maxValue].cost && !onIncreace && maxValue>0)
             {
                 maxValue--;
                 onDecreace = true;
@@ -64,10 +64,12 @@ public class ShopManager : MonoBehaviour,ISaveable
             if (i < maxShop)
             {
                 shopPies[i].GetComponent<ShopElement>().getBlockElement().SetActive(false);
+                shopPies[i].GetComponent<Button>().interactable = true;
             }
             else
             {
                 shopPies[i].GetComponent<ShopElement>().getBlockElement().SetActive(true);
+                shopPies[i].GetComponent<Button>().interactable = false;
             }
         }
     }
