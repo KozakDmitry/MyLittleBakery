@@ -22,6 +22,11 @@ public class ShopElement : MonoBehaviour
     public void SetLevelOfPie(int level)  {  levelOfPie = level;  }
     public int GetLevelOfPie()  {  return levelOfPie;   }
     
+    public void SetSprite(Sprite image)
+    {
+        imageOfPie.sprite = image;
+    }
+
     public void SetName(string name)  
     {
         nameOfElement = name;

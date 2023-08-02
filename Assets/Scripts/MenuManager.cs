@@ -9,11 +9,10 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] AudioMixer audioMixer;
-    [SerializeField] Sprite[] volumeSprites,shopSprites;
+    [SerializeField] Sprite[] volumeSprites;
     [SerializeField] AudioSource audioMenu;
-    [SerializeField] private GameObject firstUI,playUI,settingsUI;
-    [SerializeField] private Slider audioSlider;
+    [SerializeField] private GameObject firstUI,playUI,settingsUI, ExitUI;
+
     private void Start()
     {
         if (SaveLoadHelp.continieGame)
@@ -79,7 +78,9 @@ public class MenuManager : MonoBehaviour
 
     public void ToExitMenu(GameObject gm)
     {
-
+        Debug.Log("HI");
+        gm.SetActive(false);
+        ExitUI.SetActive(true);
     }
     
     public void Exit()

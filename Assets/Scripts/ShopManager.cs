@@ -102,6 +102,7 @@ public class ShopManager : MonoBehaviour,ISaveable
             ShopElement shop = gm.GetComponent<ShopElement>();
             shop.SetName(pies[i].name);
             shop.SetCost(pies[i].cost);
+            shop.SetSprite(pies[i].sprite);
             shop.SetLevelOfPie(pies[i].level);        
             gm.GetComponent<Button>().onClick.AddListener(()=>BuyPie(gm.GetComponent<ShopElement>()));
             shopPies.Add(gm);
