@@ -19,6 +19,11 @@ public class LevelManager : MonoBehaviour, ISaveable
     private static List<GameObject> PieObjects = new List<GameObject>();
 
 
+
+    public delegate void ValueChangedEventHandler ();
+    public static event ValueChangedEventHandler NewPieCreated;
+
+
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
 
@@ -115,12 +120,13 @@ public class LevelManager : MonoBehaviour, ISaveable
         if (cells.Count > 0)
         {
             PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie(pieLevel);
+            NewPieCreated();
         }
         else
         {
             Debug.Log("NO ENOUGH");
         }
-
+        
     }
     public static void CheckHighestLevel(int high)
     {

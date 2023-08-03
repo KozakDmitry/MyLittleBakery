@@ -45,6 +45,7 @@ public class PieItem : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = pieImages[pieLevel];
         InvokeRepeating(nameof(AddGoldIncome), 1.0f, 3.0f);
         GoldManager.GetInstance().UpdateCurrentExperience(1.0f);
+
     }
 
     private void AddGoldIncome()
