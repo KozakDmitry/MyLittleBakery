@@ -81,7 +81,7 @@ public class ShopManager : MonoBehaviour,ISaveable
             maxShop = maxValue;
         for(int i = 0; i < shopPies.Count; i++)
         {
-            if (i < maxShop)
+            if (i <= maxShop)
             {
                 shopPies[i].GetComponent<ShopElement>().getBlockElement().SetActive(false);
                 shopPies[i].GetComponent<Button>().interactable = true;
@@ -96,7 +96,6 @@ public class ShopManager : MonoBehaviour,ISaveable
 
     public void BuyPie(ShopElement element)
     {
-        
         if (GoldManager.GetInstance().GetGold() > element.GetCost())
         {
             GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost()); 

@@ -32,14 +32,6 @@ public class ShopElement : MonoBehaviour
         nameOfElement = name;
         nameText.text = name;
     }
-    public string GetName() { return name; }
-    void Start()
-    {
-        
-
-    }
-    private void Update()
-    {
-        
-    }
+    public string GetName() { return nameOfElement; }
+ 
 }

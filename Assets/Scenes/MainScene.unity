@@ -1905,6 +1905,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8aa616a7ddbf22b4aa3f3209da1f8571, type: 2}
   shopElement: {fileID: 6277873123543181457, guid: 70425839e37bcc64e9e3f2b213ccd26b, type: 3}
   shopCreator: {fileID: 309906370}
+  levelManager: {fileID: 444138792}
 --- !u!4 &1105732192
 Transform:
   m_ObjectHideFlags: 0
