@@ -8,51 +8,71 @@ using UnityEngine.UI;
 public class ShopManager : MonoBehaviour,ISaveable
 {
     [SerializeField] private ScriptableShop[] pies;
-    [SerializeField] private LevelManager levelManager;
     [SerializeField] private GameObject shopElement;
-    private int maxValue=0;
-    private bool onDecreace = false,onIncreace = false;
+    [SerializeField] private GameObject shopCreator;
+    [SerializeField] private LevelManager levelManager;
+    private int maxValue=0, maxShop, lastChange=-1;
     private List<GameObject> shopPies = new List<GameObject>();
 
     private void Awake()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
         GoldManager.GoldValueChanged += OnGoldValueChanged;
+        RefreshShop();
     }
-
     private void OnGoldValueChanged(float newValue)
     {
-        onDecreace = false;
-        onIncreace = false;
-        do
+        maxValue = 0;
+        for(int i = 0; i < pies.Length; i++)
         {
-            if (newValue >= pies[maxValue].cost && !onDecreace && maxValue<pies.Count())
+            if (newValue >= pies[maxValue].cost && maxValue != pies.Length)
             {
                 maxValue++;
-                onIncreace = true;
             }
-            else if (newValue < pies[maxValue].cost && !onIncreace && maxValue>0)
-            {
-                maxValue--;
-                onDecreace = true;
-            }
-            else if (onIncreace||onDecreace)
-            {
-                RefreshShop();
-                break;
-            }
-            else
-            {
-                break;
-            }
-
-        } while (maxValue<pies.Count());
-        
+            else break;
+        }
+        RefreshShop();
     }
+    //private void OnGoldValueChanged(float newValue)
+    //{
+    //    onDecreace = false;
+    //    onIncreace = false;
+    //    do
+    //    {
+    //        if (newValue >= pies[maxValue].cost && !onDecreace && maxValue<pies.Count())
+    //        {
+    //            maxValue++;
+    //            onIncreace = true;
+    //        }
+    //        else if (newValue < pies[maxValue].cost && !onIncreace && maxValue>0)
+    //        {
+    //            maxValue--;
+    //            onDecreace = true;
+    //        }
+    //        else if (onIncreace||onDecreace)
+    //        {
+    //            RefreshShop();
+    //            break;
+    //        }
+    //        else
+    //        {
+    //            break;
+    //        }
+
+    //    } while (maxValue<pies.Count());
+        
+    //}
 
     private void RefreshShop()
     {
-        int maxShop;
+        if(lastChange == maxValue)
+        {
+            return;
+        }
+        else
+        {
+            lastChange = maxValue;
+        }
         if (maxValue >= LevelManager.GetHighestLevel())
         {
             maxShop = LevelManager.GetHighestLevel();
@@ -76,10 +96,13 @@ public class ShopManager : MonoBehaviour,ISaveable
 
     public void BuyPie(ShopElement element)
     {
+        
         if (GoldManager.GetInstance().GetGold() > element.GetCost())
         {
-            GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost());
+            GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost()); 
+            levelManager.SpanwNewPie(element.GetLevelOfPie());
         }
+     
     }
     public void Save()
     {
@@ -98,7 +121,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     {
         for (int i = 0; i < pies.Count(); i++)
         {
-            GameObject gm = Instantiate(shopElement, this.transform);
+            GameObject gm = Instantiate(shopElement, shopCreator.transform);
             ShopElement shop = gm.GetComponent<ShopElement>();
             shop.SetName(pies[i].name);
             shop.SetCost(pies[i].cost);

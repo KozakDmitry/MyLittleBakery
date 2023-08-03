@@ -370,12 +370,11 @@ GameObject:
   - component: {fileID: 309906371}
   - component: {fileID: 309906373}
   - component: {fileID: 309906372}
-  - component: {fileID: 309906376}
   - component: {fileID: 309906374}
   - component: {fileID: 309906375}
   - component: {fileID: 309906377}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: ShopCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,30 +479,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &309906376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309906370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22cd57b8b55487a40955dbebfe1add36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pies:
-  - {fileID: 11400000, guid: 8c47ab23b5ac763408c5e1d0776b5c0c, type: 2}
-  - {fileID: 11400000, guid: 95f7c16857106bd489f5692f573cee62, type: 2}
-  - {fileID: 11400000, guid: ac0e1de359a722f4899dd7d721bf85fc, type: 2}
-  - {fileID: 11400000, guid: a12abc2e9b65e60499c07c2775074a03, type: 2}
-  - {fileID: 11400000, guid: f02921d7516a4204a8e04e1073bef4d6, type: 2}
-  - {fileID: 11400000, guid: e738e5aca52c72042b9f76842d010843, type: 2}
-  - {fileID: 11400000, guid: 4dfc75f3de3d52d4681b6be7aaefe18b, type: 2}
-  - {fileID: 11400000, guid: d6f40ddf8408fa34eb4712cab8411c04, type: 2}
-  - {fileID: 11400000, guid: 8aa616a7ddbf22b4aa3f3209da1f8571, type: 2}
-  levelManager: {fileID: 444138792}
-  shopElement: {fileID: 6277873123543181457, guid: 70425839e37bcc64e9e3f2b213ccd26b, type: 3}
 --- !u!114 &309906377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1889,6 +1864,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950692413}
   m_CullTransparentMesh: 1
+--- !u!1 &1105732190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1105732192}
+  - component: {fileID: 1105732191}
+  m_Layer: 0
+  m_Name: ShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1105732191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105732190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22cd57b8b55487a40955dbebfe1add36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pies:
+  - {fileID: 11400000, guid: 8c47ab23b5ac763408c5e1d0776b5c0c, type: 2}
+  - {fileID: 11400000, guid: 95f7c16857106bd489f5692f573cee62, type: 2}
+  - {fileID: 11400000, guid: ac0e1de359a722f4899dd7d721bf85fc, type: 2}
+  - {fileID: 11400000, guid: a12abc2e9b65e60499c07c2775074a03, type: 2}
+  - {fileID: 11400000, guid: f02921d7516a4204a8e04e1073bef4d6, type: 2}
+  - {fileID: 11400000, guid: e738e5aca52c72042b9f76842d010843, type: 2}
+  - {fileID: 11400000, guid: 4dfc75f3de3d52d4681b6be7aaefe18b, type: 2}
+  - {fileID: 11400000, guid: d6f40ddf8408fa34eb4712cab8411c04, type: 2}
+  - {fileID: 11400000, guid: 8aa616a7ddbf22b4aa3f3209da1f8571, type: 2}
+  shopElement: {fileID: 6277873123543181457, guid: 70425839e37bcc64e9e3f2b213ccd26b, type: 3}
+  shopCreator: {fileID: 309906370}
+--- !u!4 &1105732192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105732190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1248424325
 GameObject:
   m_ObjectHideFlags: 0

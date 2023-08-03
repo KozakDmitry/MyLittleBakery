@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         }
         else
         {
-            Debug.Log("No problems");
+            Debug.Log("NO ENOUGH");
         }
 
     }
