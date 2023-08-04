@@ -2582,7 +2582,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 10
-  block: {fileID: 108614236}
   text: {fileID: 787814126}
   unavailableSlider: {fileID: 108614241}
 --- !u!114 &1524935697
