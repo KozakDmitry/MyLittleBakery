@@ -14,15 +14,16 @@ public class ShopManager : MonoBehaviour,ISaveable
     [SerializeField] private ScrollRect shopList;
     private int maxValue=0, maxShop, lastChange=-1;
     private List<GameObject> shopPies = new List<GameObject>();
-
+ 
     private void Awake()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
-        GoldManager.GoldValueChanged += OnGoldValueChanged;
-        RefreshShop();
+        GoldManager.GoldValueChanged += OnGoldValueChanged;  
     }
     private void OnGoldValueChanged(float newValue)
     {
+        Debug.Log(newValue);
+        
         maxValue = 0;
         for(int i = 0; i < pies.Length; i++)
         {
@@ -32,6 +33,7 @@ public class ShopManager : MonoBehaviour,ISaveable
             }
             else break;
         }
+        Debug.Log(maxValue);
         RefreshShop();
     }
     //private void OnGoldValueChanged(float newValue)
@@ -64,39 +66,32 @@ public class ShopManager : MonoBehaviour,ISaveable
 
     //}
 
-
-    public void UpShop()
+    public void OpenShop()
     {
         shopList.verticalNormalizedPosition = 1;
+        RefreshShop();
     }
+
 
     private void RefreshShop()
     {
-        if(lastChange == maxValue)
+        //if (lastChange == maxValue)
+        //{
+        //    return;
+        //}
+        //else
+        //{
+        //    lastChange = maxValue;
+        //}
+        for (int i = 0; i < LevelManager.GetHighestLevel(); i++)
         {
-            return;
-        }
-        else
-        {
-            lastChange = maxValue;
-        }
-        if (maxValue >= LevelManager.GetHighestLevel())
-        {
-            maxShop = LevelManager.GetHighestLevel();
-        }
-        else
-            maxShop = maxValue;
-        for(int i = 0; i < shopPies.Count; i++)
-        {
-            if (i <= maxShop)
+            if (i < maxValue)
             {
-                shopPies[i].GetComponent<ShopElement>().getBlockElement().SetActive(false);
-                shopPies[i].GetComponent<Button>().interactable = true;
+                shopPies[i].GetComponent<ShopElement>().SetAvailable(ShopElement.Available.Yes);
             }
             else
             {
-                shopPies[i].GetComponent<ShopElement>().getBlockElement().SetActive(true);
-                shopPies[i].GetComponent<Button>().interactable = false;
+                shopPies[i].GetComponent<ShopElement>().SetAvailable(ShopElement.Available.NoMoney);
             }
         }
     }
@@ -105,8 +100,9 @@ public class ShopManager : MonoBehaviour,ISaveable
     {
         if (GoldManager.GetInstance().GetGold() > element.GetCost())
         {
-            GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost()); 
             levelManager.SpanwNewPie(element.GetLevelOfPie());
+            GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost()); 
+            
         }
      
     }
@@ -120,8 +116,8 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     void Start()
     {
-        
         GenerateFirstShop();
+        RefreshShop();
     }
     private void GenerateFirstShop()
     {
@@ -132,7 +128,8 @@ public class ShopManager : MonoBehaviour,ISaveable
             shop.SetName(pies[i].name);
             shop.SetCost(pies[i].cost);
             shop.SetSprite(pies[i].sprite);
-            shop.SetLevelOfPie(pies[i].level);        
+            shop.SetLevelOfPie(pies[i].level);
+            shop.SetAvailable(ShopElement.Available.NoAccess);
             gm.GetComponent<Button>().onClick.AddListener(()=>BuyPie(gm.GetComponent<ShopElement>()));
             shopPies.Add(gm);
         }

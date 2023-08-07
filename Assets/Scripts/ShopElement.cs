@@ -13,10 +13,42 @@ public class ShopElement : MonoBehaviour
     [SerializeField] private Image imageOfPie;
     [SerializeField] private TextMeshProUGUI costText, nameText;
     public GameObject getBlockElement() { return blockElement; }
+    public enum Available
+    {
+        NoMoney = 0,
+        NoAccess =1,
+        Yes = 2
+    }
     public void SetCost(int cost) 
     { 
         this.cost = cost;
         costText.text = cost.ToString();
+    }
+
+    public void SetAvailable(Available available)
+    {
+
+        switch (available)
+        {
+            case Available.NoMoney:
+                blockElement.SetActive(true);
+                GetComponent<Button>().interactable = true;
+                break;
+            case Available.NoAccess:
+                blockElement.SetActive(true);
+                GetComponent<Button>().interactable = false;
+                break;
+            case Available.Yes:
+                blockElement.SetActive(false);
+                GetComponent<Button>().interactable = true;
+                break;
+            default:
+                break;
+        }
+        
+       
+
+        
     }
     public int GetCost() { return cost; }
     public void SetLevelOfPie(int level)  {  levelOfPie = level;  }
