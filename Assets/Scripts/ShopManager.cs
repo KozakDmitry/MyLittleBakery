@@ -11,6 +11,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     [SerializeField] private GameObject shopElement;
     [SerializeField] private GameObject shopCreator;
     [SerializeField] private LevelManager levelManager;
+    [SerializeField] private ScrollRect shopList;
     private int maxValue=0, maxShop, lastChange=-1;
     private List<GameObject> shopPies = new List<GameObject>();
 
@@ -60,8 +61,14 @@ public class ShopManager : MonoBehaviour,ISaveable
     //        }
 
     //    } while (maxValue<pies.Count());
-        
+
     //}
+
+
+    public void UpShop()
+    {
+        shopList.verticalNormalizedPosition = 1;
+    }
 
     private void RefreshShop()
     {

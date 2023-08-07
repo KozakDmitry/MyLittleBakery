@@ -150,7 +150,9 @@ public class LevelManager : MonoBehaviour, ISaveable
             {
                 item.transform.localScale *= size;
                 item.transform.position *= (1/(spacing+deacreaseSize))*spacing;
+                item.GetComponentInChildren<DragObjects>().UpdatePosition();
             }
+            
             numToAdapt = Extentions.Pow(((int)Mathf.Sqrt(numToAdapt) + 1), 2);
         }
     }
@@ -240,7 +242,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
         PieItem pieItem = background.transform.GetChild(0).gameObject.GetComponent<PieItem>();
-        PieObjects.Add(background.transform.GetChild(0).gameObject); ;
+        PieObjects.Add(background.transform.GetChild(0).gameObject); 
         pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
         pieItem.ClearPie();
 
@@ -269,8 +271,6 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         return new Vector3(x * offsetX, y * offsetY, 0f);
     }
-
- 
 
     private void UpdateCurrentCoordinates()
     {

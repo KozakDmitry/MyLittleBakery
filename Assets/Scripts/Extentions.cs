@@ -12,5 +12,4 @@ public static class Extentions
               .Aggregate(1, (a, b) => a * b);
     }
 
-
 }

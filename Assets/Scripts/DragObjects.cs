@@ -22,7 +22,10 @@ public class DragObjects : MonoBehaviour
         startPosition = transform.position;
         currentPie = GetComponent<PieItem>();
     }
-
+    public void UpdatePosition()
+    {
+        startPosition = transform.position;
+    }
     private void OnMouseDown() 
     {
         if (currentPie.GetPieLevel() >= 0)
