@@ -31,8 +31,8 @@ public class ShopElement : MonoBehaviour
         switch (available)
         {
             case Available.NoMoney:
-                blockElement.SetActive(true);
-                GetComponent<Button>().interactable = true;
+                blockElement.SetActive(false);
+                GetComponent<Button>().interactable = false;
                 break;
             case Available.NoAccess:
                 blockElement.SetActive(true);

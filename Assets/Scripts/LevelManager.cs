@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         if (SaveLoadHelp.continieGame == false)
         {
 
-            StartCoroutine(GenerateStartField());
+            GenerateStartField();
         }
 
 
@@ -157,7 +157,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         }
     }
 
-    private IEnumerator GenerateStartField()
+    private void GenerateStartField()
     {
         for (int currentBackground = 0; currentBackground < BackgroundsCount; currentBackground++)
         {
@@ -170,7 +170,6 @@ public class LevelManager : MonoBehaviour, ISaveable
                 GetNextCell();
             }
 
-            yield return new WaitForSeconds(0f);
 
 
         }

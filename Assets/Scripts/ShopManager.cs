@@ -12,7 +12,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     [SerializeField] private GameObject shopCreator;
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private ScrollRect shopList;
-    private int maxValue=0, maxShop, lastChange=-1;
+    private int maxValue=0, lastChange=-1;
     private List<GameObject> shopPies = new List<GameObject>();
  
     private void Awake()
@@ -75,14 +75,14 @@ public class ShopManager : MonoBehaviour,ISaveable
 
     private void RefreshShop()
     {
-        //if (lastChange == maxValue)
-        //{
-        //    return;
-        //}
-        //else
-        //{
-        //    lastChange = maxValue;
-        //}
+        if (lastChange == maxValue)
+        {
+            return;
+        }
+        else
+        {
+            lastChange = maxValue;
+        }
         for (int i = 0; i < LevelManager.GetHighestLevel(); i++)
         {
             if (i < maxValue)
