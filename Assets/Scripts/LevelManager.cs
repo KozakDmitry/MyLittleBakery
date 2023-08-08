@@ -2,6 +2,7 @@ using SimpleJSON;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -20,9 +21,10 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
 
-    public delegate void ValueChangedEventHandler ();
-    public static event ValueChangedEventHandler NewPieCreated;
 
+    public delegate void ValueChangedEventHandler();
+    public static event ValueChangedEventHandler NewPieCreated;
+    public static event ValueChangedEventHandler NewCellsAvailable;
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
@@ -36,14 +38,14 @@ public class LevelManager : MonoBehaviour, ISaveable
     private int direction = 0;
     private int increace = 2;
     private int numToAdapt = 9;
-    private float spacing = 1.5f, size=1,deacreaseSize = 0.2f;
+    private float spacing = 1.5f, size = 1, deacreaseSize = 0.2f;
     private bool timeToIncrease = false;
-    public static bool isAvailableCells;
+    private static bool isAvailableCells = false;
     public void Save()
     {
         JSONObject save = new JSONObject();
         JSONArray arrayOfPies = new JSONArray();
-        foreach (GameObject obj in PieObjects) 
+        foreach (GameObject obj in PieObjects)
         {
             JSONObject jsonItem = new JSONObject();
             PieItem pieObj = obj.GetComponent<PieItem>();
@@ -56,10 +58,21 @@ public class LevelManager : MonoBehaviour, ISaveable
         save.Add("BackgroundCount", BackgroundsCount);
         save.Add("PieList", arrayOfPies);
         SaveLoadHelp.saveFile.Add("LevelManager", save);
-        
+
     }
 
-   
+    public static void SetAvailableCells(bool set)
+    {
+        isAvailableCells = set;
+        //if (set)
+        //{
+        //    NewCellsAvailable();
+        //}
+    }
+    public static bool IsAvailableCells()
+    {
+        return isAvailableCells;
+    }
     public void Load()
     {
         JSONObject saveData = new JSONObject();
@@ -104,12 +117,12 @@ public class LevelManager : MonoBehaviour, ISaveable
     private List<int> AvailableCells()
     {
         List<int> cells = new List<int>();
-        isAvailableCells = false;
+        SetAvailableCells(false);
         foreach (GameObject SinglePie in PieObjects)
         {
             if (SinglePie.GetComponent<PieItem>().GetPieLevel() == -1)
             {
-                isAvailableCells = true;
+                SetAvailableCells(true);
                 cells.Add(PieObjects.IndexOf(SinglePie));
             }
 
@@ -119,19 +132,19 @@ public class LevelManager : MonoBehaviour, ISaveable
         
     }
 
-    public bool SpanwNewPie(int pieLevel =0)
+    public void SpanwNewPie(int pieLevel =0)
     {
         List<int> cells = AvailableCells();
         if (cells.Count > 0)
         {
             PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie(pieLevel);
             NewPieCreated();
-            return true;
+           
         }
         else
         {
             Debug.Log("NO ENOUGH");
-            return false;
+      
         }
         
     }
@@ -149,6 +162,7 @@ public class LevelManager : MonoBehaviour, ISaveable
     }
     private void AdaptPies()
     {
+
         if (BackgroundObjects.Count > numToAdapt)
         {
             size-= deacreaseSize;
@@ -252,6 +266,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
         pieItem.ClearPie();
 
+        SetAvailableCells(true);
         AdaptPies();
         UpdateCurrentCoordinates();
     }

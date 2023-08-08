@@ -842,7 +842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fba20f3518f0642bb3a10f66f0f4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeSprites: []
+  volumeSprites:
+  - {fileID: 21300000, guid: 95c8af4f367366b4ea3799232f9e45cb, type: 3}
+  - {fileID: 21300000, guid: 49c37f0bc3111c14cb62f0010823c2cd, type: 3}
   audioMenu: {fileID: 0}
   firstUI: {fileID: 0}
   playUI: {fileID: 0}
@@ -2585,6 +2587,7 @@ MonoBehaviour:
   timer: 10
   text: {fileID: 787814126}
   unavailableSlider: {fileID: 108614241}
+  levelManager: {fileID: 0}
 --- !u!114 &1524935697
 MonoBehaviour:
   m_ObjectHideFlags: 0

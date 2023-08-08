@@ -11,17 +11,27 @@ public class ButtonRefresh : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Slider unavailableSlider;
     [SerializeField] private LevelManager levelManager;
-    private int localTimer;
+    private int localTimer=0;
     private Image image;
     
 
     private void Start()
     {
         LevelManager.NewPieCreated += SetTimer;
+        LevelManager.NewCellsAvailable += CheckPies;
         PressButton = GetComponent<Button>();
         image = GetComponent<Image>();
         unavailableSlider.value = 0;
         image.enabled = false;
+    }
+
+    private void CheckPies()
+    {
+        if (localTimer <= 0)
+        {
+            levelManager.SpanwNewPie();
+            SetTimer();
+        }
     }
 
     private void SetTimer()
@@ -44,8 +54,9 @@ public class ButtonRefresh : MonoBehaviour
             image.enabled = false;
             CancelInvoke(nameof(TickTimer));
             text.gameObject.SetActive(false);
-            if (levelManager.SpanwNewPie())
+            if (LevelManager.IsAvailableCells())
             {
+                levelManager.SpanwNewPie();
                 SetTimer();
             }
         }
