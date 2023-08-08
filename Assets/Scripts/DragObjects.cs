@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Path;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -52,7 +51,8 @@ public class DragObjects : MonoBehaviour
         {
             PieItem overlapPie = lastOverlappedPieObject.GetComponent<PieItem>();
             if (overlapPie.GetPieLevel() == currentPie.GetPieLevel())
-            {    
+            {
+                LevelManager.isAvailableCells = false;
                 overlapPie.GetComponent<PieItem>().UpdatePieLevel();    
                 currentPie.ClearPie();
                 lastOverlappedPieObject = null;

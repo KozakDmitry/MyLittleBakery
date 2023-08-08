@@ -10,6 +10,7 @@ public class ButtonRefresh : MonoBehaviour
     [SerializeField] private int timer;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Slider unavailableSlider;
+    [SerializeField] private LevelManager levelManager;
     private int localTimer;
     private Image image;
     
@@ -43,6 +44,10 @@ public class ButtonRefresh : MonoBehaviour
             image.enabled = false;
             CancelInvoke(nameof(TickTimer));
             text.gameObject.SetActive(false);
+            if (levelManager.SpanwNewPie())
+            {
+                SetTimer();
+            }
         }
     }
 }

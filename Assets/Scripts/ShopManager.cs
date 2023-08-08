@@ -22,7 +22,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     private void OnGoldValueChanged(float newValue)
     {
-        Debug.Log(newValue);
+
         
         maxValue = 0;
         for(int i = 0; i < pies.Length; i++)
@@ -33,7 +33,7 @@ public class ShopManager : MonoBehaviour,ISaveable
             }
             else break;
         }
-        Debug.Log(maxValue);
+
         RefreshShop();
     }
     //private void OnGoldValueChanged(float newValue)

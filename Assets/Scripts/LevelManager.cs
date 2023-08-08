@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour, ISaveable
     private int numToAdapt = 9;
     private float spacing = 1.5f, size=1,deacreaseSize = 0.2f;
     private bool timeToIncrease = false;
+    public static bool isAvailableCells;
     public void Save()
     {
         JSONObject save = new JSONObject();
@@ -57,6 +58,8 @@ public class LevelManager : MonoBehaviour, ISaveable
         SaveLoadHelp.saveFile.Add("LevelManager", save);
         
     }
+
+   
     public void Load()
     {
         JSONObject saveData = new JSONObject();
@@ -101,10 +104,12 @@ public class LevelManager : MonoBehaviour, ISaveable
     private List<int> AvailableCells()
     {
         List<int> cells = new List<int>();
+        isAvailableCells = false;
         foreach (GameObject SinglePie in PieObjects)
         {
             if (SinglePie.GetComponent<PieItem>().GetPieLevel() == -1)
             {
+                isAvailableCells = true;
                 cells.Add(PieObjects.IndexOf(SinglePie));
             }
 
@@ -114,17 +119,19 @@ public class LevelManager : MonoBehaviour, ISaveable
         
     }
 
-    public void SpanwNewPie(int pieLevel =0)
+    public bool SpanwNewPie(int pieLevel =0)
     {
         List<int> cells = AvailableCells();
         if (cells.Count > 0)
         {
             PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie(pieLevel);
             NewPieCreated();
+            return true;
         }
         else
         {
             Debug.Log("NO ENOUGH");
+            return false;
         }
         
     }

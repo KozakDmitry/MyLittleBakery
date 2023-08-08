@@ -12,11 +12,17 @@ public class MenuManager : MonoBehaviour
     [SerializeField] AudioSource audioMenu;
     [SerializeField] private GameObject firstUI,playUI,settingsUI, ExitUI;
 
+    private static GameObject instance;
+
     private void Start()
     {
         if (SaveLoadHelp.continieGame)
             SaveLoadHelp.LoadAllData();
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+            instance = gameObject;
+        else
+            Destroy(gameObject);
     }
     public void SaveGame()
     {
@@ -77,7 +83,6 @@ public class MenuManager : MonoBehaviour
 
     public void ToExitMenu(GameObject gm)
     {
-        Debug.Log("HI");
         gm.SetActive(false);
         ExitUI.SetActive(true);
     }
@@ -89,7 +94,7 @@ public class MenuManager : MonoBehaviour
 
     public void ExitToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MenuScene");
     }
     
    

@@ -398,7 +398,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -771,7 +771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &628661107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1257,7 +1257,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2632912468941282264, guid: dae78393136873a49bde7570498943a3, type: 3}
       propertyPath: m_text
-      value: "\u0412\u044B\u0445\u043E\u0434"
+      value: "\u041D\u0430\u0437\u0430\u0434"
       objectReference: {fileID: 0}
     - target: {fileID: 2632912469674991906, guid: dae78393136873a49bde7570498943a3, type: 3}
       propertyPath: m_Name
@@ -2170,18 +2170,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fba20f3518f0642bb3a10f66f0f4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
   volumeSprites:
   - {fileID: 21300000, guid: 95c8af4f367366b4ea3799232f9e45cb, type: 3}
   - {fileID: 21300000, guid: 49c37f0bc3111c14cb62f0010823c2cd, type: 3}
-  shopSprites:
-  - {fileID: 21300000, guid: de39d62a6e6d5f8419bfbad9b8fa4527, type: 3}
-  - {fileID: 21300000, guid: a004abcf6470a114985e489e87b3b422, type: 3}
   audioMenu: {fileID: 1745234665}
   firstUI: {fileID: 54998865}
   playUI: {fileID: 2071911100}
   settingsUI: {fileID: 628661106}
-  audioSlider: {fileID: 0}
+  ExitUI: {fileID: 0}
 --- !u!4 &1972607883
 Transform:
   m_ObjectHideFlags: 0
@@ -2445,7 +2441,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
