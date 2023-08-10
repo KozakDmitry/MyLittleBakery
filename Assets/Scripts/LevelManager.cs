@@ -23,7 +23,8 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
     public delegate void ValueChangedEventHandler();
-    public static event ValueChangedEventHandler NewPieCreated;
+    public delegate void ValueChangedEvent();
+    public static event ValueChangedEvent NewPieCreated;
     public static event ValueChangedEventHandler NewCellsAvailable;
 
     private int matrixSize = 6;
@@ -64,10 +65,10 @@ public class LevelManager : MonoBehaviour, ISaveable
     public static void SetAvailableCells(bool set)
     {
         isAvailableCells = set;
-        //if (set)
-        //{
-        //    NewCellsAvailable();
-        //}
+        if (set)
+        {
+           NewCellsAvailable();
+        }
     }
     public static bool IsAvailableCells()
     {
@@ -117,12 +118,12 @@ public class LevelManager : MonoBehaviour, ISaveable
     private List<int> AvailableCells()
     {
         List<int> cells = new List<int>();
-        SetAvailableCells(false);
+
         foreach (GameObject SinglePie in PieObjects)
         {
             if (SinglePie.GetComponent<PieItem>().GetPieLevel() == -1)
             {
-                SetAvailableCells(true);
+                
                 cells.Add(PieObjects.IndexOf(SinglePie));
             }
 
@@ -137,12 +138,15 @@ public class LevelManager : MonoBehaviour, ISaveable
         List<int> cells = AvailableCells();
         if (cells.Count > 0)
         {
+
             PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie(pieLevel);
+            SetAvailableCells(true);
             NewPieCreated();
            
         }
         else
         {
+            SetAvailableCells(false);
             Debug.Log("NO ENOUGH");
       
         }
@@ -266,7 +270,6 @@ public class LevelManager : MonoBehaviour, ISaveable
         pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
         pieItem.ClearPie();
 
-        SetAvailableCells(true);
         AdaptPies();
         UpdateCurrentCoordinates();
     }

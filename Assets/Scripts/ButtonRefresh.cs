@@ -13,12 +13,15 @@ public class ButtonRefresh : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     private int localTimer=0;
     private Image image;
-    
 
+    private void Awake()
+    {
+        LevelManager.NewCellsAvailable += CheckPies;
+    }
     private void Start()
     {
         LevelManager.NewPieCreated += SetTimer;
-        LevelManager.NewCellsAvailable += CheckPies;
+       
         PressButton = GetComponent<Button>();
         image = GetComponent<Image>();
         unavailableSlider.value = 0;
@@ -27,8 +30,10 @@ public class ButtonRefresh : MonoBehaviour
 
     private void CheckPies()
     {
+        print("hi");
         if (localTimer <= 0)
         {
+           
             levelManager.SpanwNewPie();
             SetTimer();
         }

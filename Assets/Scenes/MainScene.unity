@@ -2587,7 +2587,7 @@ MonoBehaviour:
   timer: 10
   text: {fileID: 787814126}
   unavailableSlider: {fileID: 108614241}
-  levelManager: {fileID: 0}
+  levelManager: {fileID: 444138792}
 --- !u!114 &1524935697
 MonoBehaviour:
   m_ObjectHideFlags: 0

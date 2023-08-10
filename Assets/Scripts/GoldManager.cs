@@ -13,7 +13,6 @@ public class GoldManager : MonoBehaviour, ISaveable
     [SerializeField] private Text ExperienceText;
     private float currentGold = 0;
     private float currentExperience = 0;
-    [SerializeField] private LevelManager levelManager;
 
 
 

@@ -55,6 +55,7 @@ public class DragObjects : MonoBehaviour
                 overlapPie.GetComponent<PieItem>().UpdatePieLevel();    
                 currentPie.ClearPie();
                 lastOverlappedPieObject = null;
+                LevelManager.SetAvailableCells(true);
             }
             else if (overlapPie.GetPieLevel() == -1)
             {
