@@ -61,8 +61,9 @@ public class ButtonRefresh : MonoBehaviour
             text.gameObject.SetActive(false);
             if (LevelManager.IsAvailableCells())
             {
-                levelManager.SpanwNewPie();
                 SetTimer();
+                levelManager.SpanwNewPie();
+                
             }
         }
     }
