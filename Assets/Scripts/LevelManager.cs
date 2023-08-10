@@ -140,12 +140,11 @@ public class LevelManager : MonoBehaviour, ISaveable
         {
 
             PieObjects[cells.ElementAt(Random.Range(0, cells.Count))].GetComponent<PieItem>().SpawnPie(pieLevel);
+            NewPieCreated();
             if (cells.Count > 1)
             {
                 SetAvailableCells(true);
-            }
-            NewPieCreated();
-           
+            }    
         }
         else
         {

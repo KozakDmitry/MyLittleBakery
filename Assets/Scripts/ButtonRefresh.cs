@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class ButtonRefresh : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     private int localTimer=0;
     private Image image;
-
+    private bool onCountdown = false;
     private void Awake()
     {
         LevelManager.NewCellsAvailable += CheckPies;
@@ -30,19 +31,23 @@ public class ButtonRefresh : MonoBehaviour
 
     private void CheckPies()
     {
-        print("hi");
-        if (localTimer <= 0)
+        if (!onCountdown)
         {
-           
-            levelManager.SpanwNewPie();
             SetTimer();
+            levelManager.SpanwNewPie();
+            
         }
     }
 
     private void SetTimer()
     {
-       
-        localTimer = timer;
+      
+        if (onCountdown)
+        {
+            return;
+        }
+        onCountdown = true;  
+        localTimer = timer;    
         text.text = localTimer.ToString();
         text.gameObject.SetActive(true);
         unavailableSlider.value = 1;
@@ -56,9 +61,10 @@ public class ButtonRefresh : MonoBehaviour
         text.text = localTimer.ToString();
         if (localTimer <= 0)
         {
+            onCountdown = false;
             image.enabled = false;
             CancelInvoke(nameof(TickTimer));
-            text.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);          
             if (LevelManager.IsAvailableCells())
             {
                 SetTimer();
