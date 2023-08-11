@@ -18,6 +18,15 @@ public class TranslateManager : MonoBehaviour,ISaveable
         allTranslateObj = FindObjectsOfType<TranslateObj>() as TranslateObj[];
         ChangeLan();
     }
+    private void OnApplicationPause(bool isPaused)
+    {
+        if (isPaused)
+        {
+
+            Save();
+        }
+    }
+
     public void Save()
     {
 

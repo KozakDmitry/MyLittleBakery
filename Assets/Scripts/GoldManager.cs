@@ -1,3 +1,4 @@
+using SimpleJSON;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,11 @@ public class GoldManager : MonoBehaviour, ISaveable
     }
     public void Save()
     {
-
+        JSONObject save = new JSONObject();
+       
+        save.Add("Gold", currentGold);
+        save.Add("Experience", currentExperience);
+        SaveLoadHelp.saveFile.Add("GoldManager", save);
     }
     public void Load()
     {

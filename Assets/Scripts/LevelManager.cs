@@ -23,8 +23,8 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
     public delegate void ValueChangedEventHandler();
-    public static event ValueChangedEventHandler NewPieCreated;
-    public static event ValueChangedEventHandler NewCellsAvailable;
+    public static event ValueChangedEventHandler NewPieCreated = delegate { };
+    public static event ValueChangedEventHandler NewCellsAvailable = delegate { };
 
     private int matrixSize = 6;
     private GameObject[,] matrixOfPies;
@@ -60,6 +60,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         SaveLoadHelp.saveFile.Add("LevelManager", save);
 
     }
+
 
     public static void SetAvailableCells(bool set)
     {

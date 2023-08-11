@@ -9,6 +9,7 @@ public class ShopElement : MonoBehaviour
     private string nameOfElement;
     private int levelOfPie;
     private int cost;
+    private int costIncrease=0;
     [SerializeField] private GameObject blockElement;
     [SerializeField] private Image imageOfPie;
     [SerializeField] private TextMeshProUGUI costText, nameText;
@@ -19,6 +20,7 @@ public class ShopElement : MonoBehaviour
         NoAccess =1,
         Yes = 2
     }
+    public int GetIncreaseCost() { return costIncrease; }
     public void SetCost(int cost) 
     { 
         this.cost = cost;

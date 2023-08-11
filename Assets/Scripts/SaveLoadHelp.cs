@@ -40,9 +40,17 @@ public static class SaveLoadHelp
 
     public static void LoadAllData()
     {
-        string JsonFile = File.ReadAllText(pathFile);
-        saveFile = (JSONObject)JSON.Parse(JsonFile);
-        LoadAll();
+        if (File.Exists(pathFile))
+        {
+            string JsonFile = File.ReadAllText(pathFile);
+            saveFile = (JSONObject)JSON.Parse(JsonFile);
+            LoadAll();
+        }
+        else
+        {
+            continieGame = false;
+        }
+        
     }
     public static void ResetAllProgress()
     {

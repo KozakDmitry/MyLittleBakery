@@ -1,3 +1,4 @@
+using SimpleJSON;
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ public class ShopManager : MonoBehaviour,ISaveable
 
         RefreshShop();
     }
+
+
     //private void OnGoldValueChanged(float newValue)
     //{
     //    onDecreace = false;
@@ -111,7 +114,17 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     public void Save()
     {
-
+        JSONObject save = new JSONObject();
+        JSONArray shopElementsArray = new JSONArray();
+        foreach (GameObject obj in shopPies)
+        {
+            JSONObject jsonItem = new JSONObject();
+            ShopElement pieObj = obj.GetComponent<ShopElement>();
+            jsonItem.Add("CostIncrease", new JSONNumber(pieObj.GetIncreaseCost()));
+            shopElementsArray.Add(jsonItem);
+        }
+        save.Add("shopElements", shopElementsArray);
+        SaveLoadHelp.saveFile.Add("ShopManager", save);
     }
     public void Load()
     {
