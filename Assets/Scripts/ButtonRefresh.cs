@@ -5,34 +5,48 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonRefresh : MonoBehaviour
+public class ButtonRefresh : MonoBehaviour, ISaveable
 {
-    private Button PressButton;
+    private Button pressButton;
+
+    [SerializeField] private Button spawnPieButton;
     [SerializeField] private int timer;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI text,fullText;
     [SerializeField] private Slider unavailableSlider;
     [SerializeField] private LevelManager levelManager;
     private int localTimer=0;
     private Image image;
     private bool onCountdown = false;
+
     private void Awake()
     {
-        LevelManager.NewCellsAvailable += CheckPies;
-    }
-    private void Start()
-    {
-        LevelManager.NewPieCreated += SetTimer;
-       
-        PressButton = GetComponent<Button>();
+        pressButton = GetComponent<Button>();
         image = GetComponent<Image>();
         unavailableSlider.value = 0;
         image.enabled = false;
+        SetTimer();
+        LevelManager.NewPieCreated += SetTimer;
+        LevelManager.NewCellsAvailable += CheckPies;
+    }
+    public void Save()
+    {
+
+    }
+    public void Load()
+    {
+
+    }
+    private void Start()
+    {
+        
+       
     }
 
     private void CheckPies()
     {
         if (!onCountdown)
         {
+
             SetTimer();
             levelManager.SpanwNewPie();
             
@@ -46,7 +60,9 @@ public class ButtonRefresh : MonoBehaviour
         {
             return;
         }
-        onCountdown = true;  
+        onCountdown = true;
+        fullText.gameObject.SetActive(false);
+        spawnPieButton.interactable = true;
         localTimer = timer;    
         text.text = localTimer.ToString();
         text.gameObject.SetActive(true);
@@ -68,7 +84,12 @@ public class ButtonRefresh : MonoBehaviour
             if (LevelManager.IsAvailableCells())
             {
                 SetTimer();
-                levelManager.SpanwNewPie();
+                levelManager.SpanwNewPie();        
+            }
+            else
+            {
+                spawnPieButton.interactable = false;
+                fullText.gameObject.SetActive(true);
                 
             }
         }

@@ -36,7 +36,7 @@ public class PieItem : MonoBehaviour
         CancelInvoke(nameof(AddGoldIncome));
         TextMeshIsActive(false);
         GetComponent<SpriteRenderer>().sprite = null;
-        LevelManager.SetAvailableCells(false);
+        LevelManager.SetAvailableCells(true);
         //RemovePie(this.gameObject);
     }
 

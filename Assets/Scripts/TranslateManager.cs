@@ -22,6 +22,11 @@ public class TranslateManager : MonoBehaviour,ISaveable
     {
 
     }
+    public void SaveGame()
+    {
+        SaveLoadHelp.SaveAllData();
+    }
+
     public void Load()
     {
 

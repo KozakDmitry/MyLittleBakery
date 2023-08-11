@@ -23,8 +23,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
 
     public delegate void ValueChangedEventHandler();
-    public delegate void ValueChangedEvent();
-    public static event ValueChangedEvent NewPieCreated;
+    public static event ValueChangedEventHandler NewPieCreated;
     public static event ValueChangedEventHandler NewCellsAvailable;
 
     private int matrixSize = 6;
@@ -65,6 +64,7 @@ public class LevelManager : MonoBehaviour, ISaveable
     public static void SetAvailableCells(bool set)
     {
         isAvailableCells = set;
+        print(set);
         if (set)
         {
            NewCellsAvailable();
@@ -143,8 +143,13 @@ public class LevelManager : MonoBehaviour, ISaveable
             NewPieCreated();
             if (cells.Count > 1)
             {
+                print("Jopa");
                 SetAvailableCells(true);
-            }    
+            }
+            else
+            {
+                SetAvailableCells(false);
+            }
         }
         else
         {
@@ -205,6 +210,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         {
             PieObjects[currentPie].GetComponent<PieItem>().SpawnPie();
         }
+        SetAvailableCells(false);
         
         
     }
@@ -271,6 +277,7 @@ public class LevelManager : MonoBehaviour, ISaveable
         PieObjects.Add(background.transform.GetChild(0).gameObject); 
         pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
         pieItem.ClearPie();
+
 
         AdaptPies();
         UpdateCurrentCoordinates();
