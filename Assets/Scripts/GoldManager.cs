@@ -53,7 +53,13 @@ public class GoldManager : MonoBehaviour, ISaveable
     }
     public void Load()
     {
-
+        JSONObject saveData = new JSONObject();
+        saveData.Add(SaveLoadHelp.saveFile["GoldManager"]);
+        if (saveData != null)
+        {
+            UpdateCurrentGold(saveData["Gold"]);
+            UpdateCurrentExperience(saveData["Expirience"]); 
+        }
     }
     public void UpdateCurrentGold(float goldToAdd)
     {

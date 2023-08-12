@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TranslateManager : MonoBehaviour,ISaveable
+public class TranslateManager : MonoBehaviour
 {
     private TranslateObj[] allTranslateObj;
 
@@ -18,28 +18,8 @@ public class TranslateManager : MonoBehaviour,ISaveable
         allTranslateObj = FindObjectsOfType<TranslateObj>() as TranslateObj[];
         ChangeLan();
     }
-    private void OnApplicationPause(bool isPaused)
-    {
-        if (isPaused)
-        {
 
-            Save();
-        }
-    }
 
-    public void Save()
-    {
-
-    }
-    public void SaveGame()
-    {
-        SaveLoadHelp.SaveAllData();
-    }
-
-    public void Load()
-    {
-
-    }
     public void ChangeLan()
     {
         foreach (TranslateObj obj in allTranslateObj)

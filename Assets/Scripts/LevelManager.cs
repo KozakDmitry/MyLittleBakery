@@ -51,13 +51,42 @@ public class LevelManager : MonoBehaviour, ISaveable
             PieItem pieObj = obj.GetComponent<PieItem>();
             jsonItem.Add("CellNum", new JSONNumber(pieObj.GetCell()));
             jsonItem.Add("PieIndex", new JSONNumber(pieObj.GetIndex()));
-            jsonItem.Add("PieLeve", new JSONNumber(pieObj.GetPieLevel()));
+            jsonItem.Add("PieLevel", new JSONNumber(pieObj.GetPieLevel()));
 
             arrayOfPies.Add(jsonItem);
         }
         save.Add("BackgroundCount", BackgroundsCount);
         save.Add("PieList", arrayOfPies);
         SaveLoadHelp.saveFile.Add("LevelManager", save);
+
+    }
+
+    public void Load()
+    {
+        JSONObject saveData = new JSONObject();
+
+        saveData.Add(SaveLoadHelp.saveFile["LevelManager"]);
+        if (saveData != null)
+        {
+            while(BackgroundsCount< saveData["BackgroundCount"])
+            {
+                GetNextCell();
+            }
+            
+            int i = 0;
+            JSONArray arrayOfPies =(JSONArray)saveData["PieList"];
+            {
+                foreach(JSONObject jsonItem in arrayOfPies)
+                {
+                    PieItem pieObj = PieObjects[i].GetComponent<PieItem>();
+                    pieObj.SetCell(jsonItem["CellNum"]);
+                    pieObj.SetIndex(jsonItem["PieIndex"]);
+                    pieObj.SpawnPie(jsonItem["PieList"]);
+                }
+            }
+
+        }
+      
 
     }
 
@@ -75,19 +104,7 @@ public class LevelManager : MonoBehaviour, ISaveable
     {
         return isAvailableCells;
     }
-    public void Load()
-    {
-        JSONObject saveData = new JSONObject();
-        
-        saveData.Add(SaveLoadHelp.saveFile["LevelManager"]);
-        if (saveData != null)
-        {
-            BackgroundsCount = saveData["BackgroundCount"];
-            
-        }
-        else {  }
 
-    }
 
 
     private void Awake()

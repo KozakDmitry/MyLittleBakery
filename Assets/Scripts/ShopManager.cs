@@ -128,7 +128,18 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     public void Load()
     {
-
+        JSONObject saveData= new JSONObject();
+        saveData.Add(SaveLoadHelp.saveFile["ShopManager"]);
+        if (saveData != null)
+        {
+            int i = 0;
+            JSONArray shopElementsArray = (JSONArray)saveData["ShopElements"];
+            foreach (JSONObject obj in shopElementsArray)
+            {
+                shopPies[i].GetComponent<ShopElement>().SetIncreaseCost(int.Parse(obj.Value));
+                i++;
+            }
+        }
     }
     void Start()
     {

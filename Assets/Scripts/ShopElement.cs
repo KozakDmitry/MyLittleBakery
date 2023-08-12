@@ -21,6 +21,7 @@ public class ShopElement : MonoBehaviour
         Yes = 2
     }
     public int GetIncreaseCost() { return costIncrease; }
+    public void SetIncreaseCost(int cost) {  costIncrease = cost; }
     public void SetCost(int cost) 
     { 
         this.cost = cost;

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonRefresh : MonoBehaviour, ISaveable
+public class ButtonRefresh : MonoBehaviour
 {
     private Button pressButton;
 
@@ -27,14 +27,6 @@ public class ButtonRefresh : MonoBehaviour, ISaveable
         SetTimer();
         LevelManager.NewPieCreated += SetTimer;
         LevelManager.NewCellsAvailable += CheckPies;
-    }
-    public void Save()
-    {
-
-    }
-    public void Load()
-    {
-
     }
 
 

@@ -9,11 +9,6 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject ExitUI;
 
-    struct playerData
-    {
-        int cold;
-        int expirience;
-    }
 
     private void Start()
     {
@@ -25,11 +20,14 @@ public class GameManager : MonoBehaviour
     {
         if (isPaused)
         {
-
             SaveLoadHelp.SaveAllData();
         }
     }
 
+    public void SaveGame()
+    {
+        SaveLoadHelp.SaveAllData();
+    }
 
 
     public void ToExitMenu(GameObject gm)

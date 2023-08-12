@@ -14,6 +14,13 @@ public static class SaveLoadHelp
     private static string pathFile = Application.persistentDataPath + saveFileName;
     public static JSONObject saveFile = new JSONObject();
     public static bool continieGame = false;
+
+    //public enum SaveEnum 
+    //{
+    //    shopManager,
+    //    levelManager,
+    //    buttonRefrest,
+    //}
     public static void SubscribeSV(GameObject gm)
     {
         ISaveable isave = gm.GetComponent<ISaveable>();
