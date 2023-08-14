@@ -33,6 +33,10 @@ public class GoldManager : MonoBehaviour, ISaveable
 
     private static GoldManager instance = null;
 
+    private void OnDisable()
+    {
+        SaveLoadHelp.UnsubscribeSV(this.gameObject);
+    }
 
     private GoldManager()
     {
@@ -78,7 +82,6 @@ public class GoldManager : MonoBehaviour, ISaveable
         ExperienceText.text = currentExperience.ToString();
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);

@@ -39,6 +39,7 @@ public class MenuManager : MonoBehaviour
                 SaveLoadHelp.continieGame = true;
                 break;
         }
+        print(SaveLoadHelp.continieGame);
         SceneManager.LoadScene("GameScene");
     }
     public void ChangeToPlayUI()

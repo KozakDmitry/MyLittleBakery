@@ -28,6 +28,11 @@ public class ButtonRefresh : MonoBehaviour
         LevelManager.NewPieCreated += SetTimer;
         LevelManager.NewCellsAvailable += CheckPies;
     }
+    private void OnDisable()
+    {
+        LevelManager.NewPieCreated -= SetTimer;
+        LevelManager.NewCellsAvailable -= CheckPies;
+    }
 
 
     private void Start()

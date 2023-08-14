@@ -21,6 +21,11 @@ public class ShopManager : MonoBehaviour,ISaveable
         SaveLoadHelp.SubscribeSV(this.gameObject);
         GoldManager.GoldValueChanged += OnGoldValueChanged;  
     }
+    private void OnDisable()
+    {
+        GoldManager.GoldValueChanged -= OnGoldValueChanged;
+        SaveLoadHelp.UnsubscribeSV(this.gameObject);
+    }
     private void OnGoldValueChanged(float newValue)
     {
 

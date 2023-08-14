@@ -28,6 +28,12 @@ public static class SaveLoadHelp
         LoadAll += isave.Load;
 
     }
+    public static void UnsubscribeSV(GameObject gm) 
+    {
+        ISaveable isave = gm.GetComponent<ISaveable>();
+        SaveAll -= isave.Save;
+        LoadAll -= isave.Load;
+    } 
     public static bool CheckSave()
     {
         if (File.Exists(pathFile))

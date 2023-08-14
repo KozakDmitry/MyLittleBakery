@@ -16,8 +16,8 @@ public class LevelManager : MonoBehaviour, ISaveable
     [SerializeField] private GoldManager GoldManager;
     [SerializeField] private int BackgroundsCount;
 
-    private static List<GameObject> BackgroundObjects = new List<GameObject>();
-    private static List<GameObject> PieObjects = new List<GameObject>();
+    private List<GameObject> BackgroundObjects = new List<GameObject>();
+    private List<GameObject> PieObjects = new List<GameObject>();
 
 
 
@@ -64,7 +64,6 @@ public class LevelManager : MonoBehaviour, ISaveable
     public void Load()
     {
         JSONObject saveData = new JSONObject();
-
         saveData.Add(SaveLoadHelp.saveFile["LevelManager"]);
         if (saveData != null)
         {
@@ -110,9 +109,15 @@ public class LevelManager : MonoBehaviour, ISaveable
     {
         SaveLoadHelp.SubscribeSV(this.gameObject);
     }
+    private void OnDisable()
+    {
+        SaveLoadHelp.UnsubscribeSV(this.gameObject);
+    }
+
     void Start()
     {
-
+        print(BackgroundObjects.Count);
+        print(SaveLoadHelp.continieGame);
         centerX = matrixSize / 2;
         centerY = matrixSize / 2;
         currentX = centerX;
@@ -127,7 +132,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     }
 
-    public static void RemovePie(GameObject gm)
+    public void RemovePie(GameObject gm)
     {
         PieObjects.Remove(gm);
     }
@@ -192,7 +197,9 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         if (BackgroundObjects.Count > numToAdapt)
         {
-            size-= deacreaseSize;
+            print("WTF");
+            print(BackgroundObjects.Count);
+            size -= deacreaseSize;
             spacing -= deacreaseSize;
             foreach (GameObject item in BackgroundObjects)
             {
