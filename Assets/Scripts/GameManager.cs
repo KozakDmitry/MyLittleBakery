@@ -29,7 +29,11 @@ public class GameManager : MonoBehaviour
         SaveLoadHelp.SaveAllData();
     }
 
-
+    public void LoadGame()
+    {
+        SaveLoadHelp.continieGame = true;
+        SceneManager.LoadScene("GameScene");
+    }
     public void ToExitMenu(GameObject gm)
     {
         gm.SetActive(false);

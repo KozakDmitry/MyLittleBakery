@@ -94,7 +94,6 @@ public class LevelManager : MonoBehaviour, ISaveable
     public static void SetAvailableCells(bool set)
     {
         isAvailableCells = set;
-        print(set);
         if (set)
         {
            NewCellsAvailable();
@@ -161,7 +160,6 @@ public class LevelManager : MonoBehaviour, ISaveable
             NewPieCreated();
             if (cells.Count > 1)
             {
-                print("Jopa");
                 SetAvailableCells(true);
             }
             else

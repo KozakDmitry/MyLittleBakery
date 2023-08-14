@@ -911,6 +911,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 936322600}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632912469674991919, guid: dae78393136873a49bde7570498943a3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dae78393136873a49bde7570498943a3, type: 3}
 --- !u!224 &437428170 stripped
@@ -1942,7 +1970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecd18bb0a787614b8e2b80227ed6050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExitUI: {fileID: 0}
+  ExitUI: {fileID: 476961701}
 --- !u!4 &936322601
 Transform:
   m_ObjectHideFlags: 0

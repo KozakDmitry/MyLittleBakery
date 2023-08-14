@@ -9,11 +9,22 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] Sprite[] volumeSprites;
     [SerializeField] AudioSource audioMenu;
-    [SerializeField] private GameObject firstUI,playUI,settingsUI, ExitUI;
-    
+    [SerializeField] private GameObject firstUI,playUI,settingsUI;
+    [SerializeField] private Button continieGame;
 
-   
 
+
+    private void Start()
+    {
+        if (SaveLoadHelp.CheckSave())
+        {
+            continieGame.interactable = true;
+        }
+        else
+        {
+            continieGame.interactable = false;
+        }
+    }
     public void Play(int k)
     {
         switch (k)
@@ -28,7 +39,7 @@ public class MenuManager : MonoBehaviour
                 SaveLoadHelp.continieGame = true;
                 break;
         }
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("GameScene");
     }
     public void ChangeToPlayUI()
     {

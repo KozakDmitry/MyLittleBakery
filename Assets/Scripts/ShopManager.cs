@@ -103,7 +103,7 @@ public class ShopManager : MonoBehaviour,ISaveable
 
     public void BuyPie(ShopElement element)
     {
-        print(LevelManager.IsAvailableCells());
+        
         if (GoldManager.GetInstance().GetGold() > element.GetCost())
         {
             levelManager.SpanwNewPie(element.GetLevelOfPie());
