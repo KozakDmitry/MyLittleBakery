@@ -64,20 +64,26 @@ public class LevelManager : MonoBehaviour, ISaveable
     public void Load()
     {
         JSONObject saveData = new JSONObject();
-        saveData.Add(SaveLoadHelp.saveFile["LevelManager"]);
+        saveData.Add(SaveLoadHelp.saveFile["LevelManager"].AsArray);
         if (saveData != null)
         {
+           
             while(BackgroundsCount< saveData["BackgroundCount"])
             {
+                
                 GetNextCell();
             }
             
             int i = 0;
-            JSONArray arrayOfPies =(JSONArray)saveData["PieList"];
+
+            JSONArray arrayOfPies = new JSONArray();
+            arrayOfPies = saveData["PieList"].AsArray;
+            Debug.Log(arrayOfPies.Count);
             {
                 foreach(JSONObject jsonItem in arrayOfPies)
                 {
                     PieItem pieObj = PieObjects[i].GetComponent<PieItem>();
+                    
                     pieObj.SetCell(jsonItem["CellNum"]);
                     pieObj.SetIndex(jsonItem["PieIndex"]);
                     pieObj.SpawnPie(jsonItem["PieList"]);
@@ -116,8 +122,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     void Start()
     {
-        print(BackgroundObjects.Count);
-        print(SaveLoadHelp.continieGame);
+
         centerX = matrixSize / 2;
         centerY = matrixSize / 2;
         currentX = centerX;
@@ -197,8 +202,6 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         if (BackgroundObjects.Count > numToAdapt)
         {
-            print("WTF");
-            print(BackgroundObjects.Count);
             size -= deacreaseSize;
             spacing -= deacreaseSize;
             foreach (GameObject item in BackgroundObjects)

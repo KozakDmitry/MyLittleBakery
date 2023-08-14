@@ -138,7 +138,7 @@ public class ShopManager : MonoBehaviour,ISaveable
         if (saveData != null)
         {
             int i = 0;
-            JSONArray shopElementsArray = (JSONArray)saveData["ShopElements"];
+            JSONArray shopElementsArray = saveData["ShopElements"].AsArray;
             foreach (JSONObject obj in shopElementsArray)
             {
                 shopPies[i].GetComponent<ShopElement>().SetIncreaseCost(int.Parse(obj.Value));

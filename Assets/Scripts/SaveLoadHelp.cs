@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 using System.IO;
+using Unity.VisualScripting.FullSerializer;
 
 public static class SaveLoadHelp
 {
@@ -34,6 +35,7 @@ public static class SaveLoadHelp
         SaveAll -= isave.Save;
         LoadAll -= isave.Load;
     } 
+    
     public static bool CheckSave()
     {
         if (File.Exists(pathFile))
@@ -42,6 +44,7 @@ public static class SaveLoadHelp
         }
         else
         {
+            
             return false;
         }
     }
@@ -49,6 +52,7 @@ public static class SaveLoadHelp
     {
         SaveAll();
         File.WriteAllText(pathFile, saveFile.ToString());
+        Debug.Log(pathFile + "\n");
     }
 
     public static void LoadAllData()
