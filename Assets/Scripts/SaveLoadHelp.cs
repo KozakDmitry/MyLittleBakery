@@ -4,6 +4,7 @@ using UnityEngine;
 using SimpleJSON;
 using System.IO;
 using Unity.VisualScripting.FullSerializer;
+using UnityEngine.SceneManagement;
 
 public static class SaveLoadHelp
 {
@@ -53,6 +54,10 @@ public static class SaveLoadHelp
         SaveAll();
         File.WriteAllText(pathFile, saveFile.ToString());
         Debug.Log(pathFile + "\n");
+    }
+    public static AsyncOperation LoadMainSceneAsync(string name)
+    {
+        return SceneManager.LoadSceneAsync(name);
     }
 
     public static void LoadAllData()

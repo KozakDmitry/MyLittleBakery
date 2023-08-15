@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,32 @@ public class MenuManager : MonoBehaviour
     [SerializeField] AudioSource audioMenu;
     [SerializeField] private GameObject firstUI,playUI,settingsUI;
     [SerializeField] private Button continieGame;
+    [SerializeField] private CanvasGroup loadingCanvasGroup;
 
 
+    private void StartTransition()
+    {
+        loadingCanvasGroup.alpha = 1; 
 
+       
+        loadingCanvasGroup.DOFade(0, 1.0f).OnComplete(() =>
+        {
+            LoadMainScene();
+        });
+    }
+
+    private void LoadMainScene()
+    {
+        AsyncOperation asyncLoad = SaveLoadHelp.LoadMainSceneAsync("GameScene");
+        asyncLoad.completed += OnLoadCompleted;
+    }
+
+    private void OnLoadCompleted(AsyncOperation asyncOperation)
+    {
+        SaveLoadHelp.LoadAllData();
+        SceneManager.LoadScene("GameScene");
+
+    }
     private void Start()
     {
         if (SaveLoadHelp.CheckSave())
@@ -39,7 +63,8 @@ public class MenuManager : MonoBehaviour
                 SaveLoadHelp.continieGame = true;
                 break;
         }
-        SceneManager.LoadScene("GameScene");
+        StartTransition();
+     
     }
     public void ChangeToPlayUI()
     {
