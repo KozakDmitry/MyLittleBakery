@@ -73,12 +73,11 @@ public class LevelManager : MonoBehaviour, ISaveable
             }
             JSONArray arrayOfPies = new JSONArray();
             arrayOfPies = saveData["PieList"].AsArray;
-            Debug.Log(arrayOfPies);
+   
             {
                 for (int i = 0; i < PieObjects.Count; i++)
                 {
                     PieItem pieObj = PieObjects[i].GetComponent<PieItem>();
-                    Debug.Log(arrayOfPies[i]);
                     pieObj.SetCell(arrayOfPies[i]["CellNum"]);
                     pieObj.SetIndex(arrayOfPies[i]["PieIndex"]);
                     if (arrayOfPies[i]["PieLevel"].AsInt == -1)
