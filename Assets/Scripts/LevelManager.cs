@@ -56,7 +56,7 @@ public class LevelManager : MonoBehaviour, ISaveable
             arrayOfPies.Add(jsonItem);
         }
         save.Add("BackgroundCount", BackgroundsCount);
-        save.Add("PieList", arrayOfPies);
+        save.Add("PieList", arrayOfPies.AsObject);
         SaveLoadHelp.saveFile.Add("LevelManager", save);
 
     }
@@ -64,36 +64,41 @@ public class LevelManager : MonoBehaviour, ISaveable
     public void Load()
     {
         JSONObject saveData = new JSONObject();
-        saveData.Add(SaveLoadHelp.saveFile["LevelManager"].AsArray);
+        saveData = SaveLoadHelp.saveFile["LevelManager"].AsObject;
         if (saveData != null)
         {
-           
-            while(BackgroundsCount< saveData["BackgroundCount"])
+            while (BackgroundsCount < saveData["BackgroundCount"])
             {
-                
                 GetNextCell();
             }
-            
-            int i = 0;
-
             JSONArray arrayOfPies = new JSONArray();
             arrayOfPies = saveData["PieList"].AsArray;
-            Debug.Log(arrayOfPies.Count);
+            Debug.Log(arrayOfPies);
             {
-                foreach(JSONObject jsonItem in arrayOfPies)
+                for (int i = 0; i < PieObjects.Count; i++)
                 {
                     PieItem pieObj = PieObjects[i].GetComponent<PieItem>();
-                    
-                    pieObj.SetCell(jsonItem["CellNum"]);
-                    pieObj.SetIndex(jsonItem["PieIndex"]);
-                    pieObj.SpawnPie(jsonItem["PieList"]);
+                    Debug.Log(arrayOfPies[i]);
+                    pieObj.SetCell(arrayOfPies[i]["CellNum"]);
+                    pieObj.SetIndex(arrayOfPies[i]["PieIndex"]);
+                    if (arrayOfPies[i]["PieLevel"].AsInt == -1)
+                    {
+                        pieObj.ClearPie();
+                    }
+                    else
+                    {
+                        pieObj.SpawnPie(arrayOfPies[i]["PieLevel"].AsInt);
+                    }
                 }
+
             }
 
         }
+
+    } 
       
 
-    }
+    
 
 
     public static void SetAvailableCells(bool set)
@@ -113,6 +118,12 @@ public class LevelManager : MonoBehaviour, ISaveable
 
     private void Awake()
     {
+        centerX = matrixSize / 2;
+        centerY = matrixSize / 2;
+        currentX = centerX;
+        currentY = centerY;
+        matrixOfPies = new GameObject[matrixSize, matrixSize];
+        GenerateStartField();
         SaveLoadHelp.SubscribeSV(this.gameObject);
     }
     private void OnDisable()
@@ -123,17 +134,7 @@ public class LevelManager : MonoBehaviour, ISaveable
     void Start()
     {
 
-        centerX = matrixSize / 2;
-        centerY = matrixSize / 2;
-        currentX = centerX;
-        currentY = centerY;
-        matrixOfPies = new GameObject[matrixSize, matrixSize];
-        if (SaveLoadHelp.continieGame == false)
-        {
-
-            GenerateStartField();
-        }
-
+     
 
     }
 
@@ -301,7 +302,8 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         PieItem pieItem = background.transform.GetChild(0).gameObject.GetComponent<PieItem>();
         PieObjects.Add(background.transform.GetChild(0).gameObject); 
-        pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
+        //pieItem.SetCell(PieObjects.IndexOf(background.transform.GetChild(0).gameObject));
+        pieItem.SetCell(PieObjects.Count);
         pieItem.ClearPie();
 
 

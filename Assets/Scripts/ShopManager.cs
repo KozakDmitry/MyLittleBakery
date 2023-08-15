@@ -119,7 +119,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     }
     public void Save()
     {
-        JSONObject save = new JSONObject();
+        JSONArray save = new JSONArray();
         JSONArray shopElementsArray = new JSONArray();
         foreach (GameObject obj in shopPies)
         {
