@@ -59,7 +59,6 @@ public class GoldManager : MonoBehaviour, ISaveable
     {
         JSONObject saveData = new JSONObject();
         saveData = SaveLoadHelp.saveFile["GoldManager"].AsObject;
-        Debug.Log(saveData);
         if (saveData != null)
         {
             UpdateCurrentGold(saveData["Gold"]);
