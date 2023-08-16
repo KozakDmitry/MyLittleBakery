@@ -56,7 +56,7 @@ public class LevelManager : MonoBehaviour, ISaveable
             arrayOfPies.Add(jsonItem);
         }
         save.Add("BackgroundCount", BackgroundsCount);
-        save.Add("PieList", arrayOfPies.AsObject);
+        save.Add("PieList", arrayOfPies);
         SaveLoadHelp.saveFile.Add("LevelManager", save);
 
     }
@@ -73,7 +73,8 @@ public class LevelManager : MonoBehaviour, ISaveable
             }
             JSONArray arrayOfPies = new JSONArray();
             arrayOfPies = saveData["PieList"].AsArray;
-   
+
+            
             {
                 for (int i = 0; i < PieObjects.Count; i++)
                 {
