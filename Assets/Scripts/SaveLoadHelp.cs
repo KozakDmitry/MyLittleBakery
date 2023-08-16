@@ -17,6 +17,8 @@ public static class SaveLoadHelp
     public static JSONObject saveFile = new JSONObject();
     public static bool continieGame = false;
 
+
+
     //public enum SaveEnum 
     //{
     //    shopManager,
@@ -55,7 +57,7 @@ public static class SaveLoadHelp
         File.WriteAllText(pathFile, saveFile.ToString());
         Debug.Log(pathFile + "\n");
     }
-    public static AsyncOperation LoadMainSceneAsync(string name)
+    public static AsyncOperation LoadSceneAsync(string name)
     {
         return SceneManager.LoadSceneAsync(name);
     }
@@ -72,7 +74,7 @@ public static class SaveLoadHelp
         {
             continieGame = false;
         }
-        
+     
     }
     public static void ResetAllProgress()
     {

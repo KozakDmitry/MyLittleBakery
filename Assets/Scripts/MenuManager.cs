@@ -17,26 +17,25 @@ public class MenuManager : MonoBehaviour
 
     private void StartTransition()
     {
-        loadingCanvasGroup.alpha = 1; 
-
-       
-        loadingCanvasGroup.DOFade(0, 1.0f).OnComplete(() =>
+        loadingCanvasGroup.interactable = true;
+        loadingCanvasGroup.DOFade(1, 1.0f).OnComplete(() =>
         {
-            LoadMainScene();
+            AsyncOperation asyncLoad = SaveLoadHelp.LoadSceneAsync("GameScene");
+            asyncLoad.completed += OnLoadCompleted;
         });
-    }
+       
 
-    private void LoadMainScene()
-    {
-        AsyncOperation asyncLoad = SaveLoadHelp.LoadMainSceneAsync("GameScene");
-        asyncLoad.completed += OnLoadCompleted;
+
+     
     }
 
     private void OnLoadCompleted(AsyncOperation asyncOperation)
     {
-        SaveLoadHelp.LoadAllData();
+        if (SaveLoadHelp.continieGame)
+        {
+            SaveLoadHelp.LoadAllData();
+        }
         SceneManager.LoadScene("GameScene");
-
     }
     private void Start()
     {
