@@ -93,15 +93,19 @@ public class ShopManager : MonoBehaviour,ISaveable
         {
             lastChange = maxValue;
         }
-        for (int i = 0; i < LevelManager.GetHighestLevel(); i++)
+
+        if (shopPies.Count > 0)
         {
-            if (i < maxValue && LevelManager.IsAvailableCells())
+            for (int i = 0; i < LevelManager.GetHighestLevel(); i++)
             {
-                shopPies[i].GetComponent<ShopElement>().SetAvailable(ShopElement.Available.Yes);
-            }
-            else
-            {
-                shopPies[i].GetComponent<ShopElement>().SetAvailable(ShopElement.Available.NoMoney);
+                if (i < maxValue && LevelManager.IsAvailableCells())
+                {
+                    shopPies[i].GetComponent<ShopElement>().SetAvailable(ShopElement.Available.Yes);
+                }
+                else
+                {
+                    shopPies[i].GetComponent<ShopElement>().SetAvailable(ShopElement.Available.NoMoney);
+                }
             }
         }
     }
@@ -113,7 +117,6 @@ public class ShopManager : MonoBehaviour,ISaveable
         {
             levelManager.SpanwNewPie(element.GetLevelOfPie());
             GoldManager.GetInstance().UpdateCurrentGold(-element.GetCost());
-            RefreshShop();
         }
      
     }
@@ -149,7 +152,6 @@ public class ShopManager : MonoBehaviour,ISaveable
     void Start()
     {
         GenerateFirstShop();
-        RefreshShop();
     }
     private void GenerateFirstShop()
     {
