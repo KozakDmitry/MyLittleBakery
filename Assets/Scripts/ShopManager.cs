@@ -137,7 +137,7 @@ public class ShopManager : MonoBehaviour,ISaveable
     public void Load()
     {
         JSONObject saveData= new JSONObject();
-        saveData.Add(SaveLoadHelp.saveFile["ShopManager"]);
+        saveData = SaveLoadHelp.saveFile["ShopManager"].AsObject;
         if (saveData != null)
         {
             int i = 0;
@@ -148,6 +148,7 @@ public class ShopManager : MonoBehaviour,ISaveable
                 i++;
             }
         }
+        OnGoldValueChanged(GoldManager.GetInstance().GetGold());
     }
     void Start()
     {

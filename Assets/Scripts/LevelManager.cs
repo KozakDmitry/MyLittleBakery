@@ -71,10 +71,7 @@ public class LevelManager : MonoBehaviour, ISaveable
             {
                 GetNextCell();
             }
-            JSONArray arrayOfPies = new JSONArray();
-            arrayOfPies = saveData["PieList"].AsArray;
-
-            
+            JSONArray arrayOfPies = saveData["PieList"].AsArray;            
             {
                 for (int i = 0; i < PieObjects.Count; i++)
                 {
@@ -309,6 +306,7 @@ public class LevelManager : MonoBehaviour, ISaveable
 
         AdaptPies();
         UpdateCurrentCoordinates();
+        
     }
 
 
