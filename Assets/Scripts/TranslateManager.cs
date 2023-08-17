@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class TranslateManager : MonoBehaviour
 {
-    [SerializeField]
     private TranslateObj[] allTranslateObj;
     public static TranslateManager instance;
 
@@ -20,18 +22,22 @@ public class TranslateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        SaveLoadHelp.SubscribeSV(this.gameObject);
         Translator.SelectStartLanguage();
     }
 
     void Start()
     {
         Translator.ReadCSVFile();
-        allTranslateObj = FindObjectsOfType<TranslateObj>() as TranslateObj[];
+      
+    }
+  
+
+    
+    public void AddObjects(TranslateObj[] NewTranslateObj)
+    {
+        allTranslateObj = NewTranslateObj;
         ChangeLan();
     }
-
-
     public void ChangeLan()
     {
         foreach (TranslateObj obj in allTranslateObj)

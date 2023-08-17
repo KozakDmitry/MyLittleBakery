@@ -8,14 +8,8 @@ public class TranslateHelper : MonoBehaviour
     private TranslateObj[] allTranslateObj;
 
 
-    void Start()
+    private void Start()
     {
-        
-    }
-
-
-    void Update()
-    {
-        
+        TranslateManager.instance.AddObjects(allTranslateObj);
     }
 }

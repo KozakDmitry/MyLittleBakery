@@ -8,13 +8,14 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] Sprite[] volumeSprites;
+    [SerializeField] Sprite[] volumeSprites,languageSprites;
     [SerializeField] AudioSource audioMenu;
     [SerializeField] private GameObject firstUI,playUI,settingsUI;
     [SerializeField] private Button continieGame;
     [SerializeField] private CanvasGroup loadingCanvasGroup;
-
-
+    [SerializeField] private RectTransform langContainer;
+    private float expandedHeight = 200f;
+    private bool isExpanded = false;
     private void StartTransition()
     {
         loadingCanvasGroup.interactable = true;
@@ -28,6 +29,24 @@ public class MenuManager : MonoBehaviour
 
      
     }
+
+    public void ToggleDropdown()
+    {
+        if (isExpanded)
+        {
+
+            langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, 0f), 0.3f);
+        }
+        else
+        {
+
+            langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, expandedHeight), 0.3f);
+        }
+
+        isExpanded = !isExpanded;
+    }
+
+
 
     private void OnLoadCompleted(AsyncOperation asyncOperation)
     {
