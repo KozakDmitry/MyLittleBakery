@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using System.IO;
-
+using JetBrains.Annotations;
 
 public static class Translator
 {
@@ -19,15 +19,25 @@ public static class Translator
         English
     }
 
+ 
+
     public static string SelectStartLanguage()
     {
         if (PlayerPrefs.HasKey("Language"))
         {
             choosedLanguage = LoadLanguage();
+            SaveLanguage();
         }
         return choosedLanguage;
     }
-    private static int ReturnLanguage()
+
+
+    private static void SaveLanguage()
+    {
+        PlayerPrefs.SetString("Language", choosedLanguage);
+        PlayerPrefs.Save();
+    }
+    public static int ReturnLanguage()
     {
         switch (choosedLanguage)
         {
@@ -54,14 +64,13 @@ public static class Translator
     public static void ChangeLanguage(string choose)
     {
         choosedLanguage = choose;
+        SaveLanguage();
     }
-    public static void ChangeLanguage(int choose)
-    {
 
-    }
 
     public static void ReadCSVFile()
     {
+        Debug.Log(path);
         phrases = File.ReadAllLines(path, Encoding.UTF8);
     }
 }

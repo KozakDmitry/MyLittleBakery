@@ -79,7 +79,6 @@ public static class SaveLoadHelp
     public static void ResetAllProgress()
     {
         File.Delete(pathFile);
-        PlayerPrefs.DeleteAll();
     }
 
 }
