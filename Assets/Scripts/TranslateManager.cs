@@ -29,7 +29,8 @@ public class TranslateManager : MonoBehaviour
         Translator.ReadCSVFile();
         
     }
-  
+    
+   
 
     
     public void AddObjects(TranslateObj[] NewTranslateObj)

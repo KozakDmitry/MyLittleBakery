@@ -80,6 +80,16 @@ public class MenuManager : MonoBehaviour
         }
 
     }
+    private void RefreshLanguage()
+    {
+
+    }
+
+    public void ChangeLanguage(string language) 
+    {
+        Translator.ChangeLanguage(language);
+        RefreshLanguage();
+    }
     public void Play(int k)
     {
         switch (k)
