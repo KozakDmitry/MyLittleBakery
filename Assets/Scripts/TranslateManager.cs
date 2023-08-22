@@ -9,8 +9,7 @@ public class TranslateManager : MonoBehaviour
 {
     private TranslateObj[] allTranslateObj;
     public static TranslateManager instance;
-
-
+    [SerializeField] private GameObject languagePrefab;
     private void Awake()
     {
         if (instance == null)
@@ -28,7 +27,7 @@ public class TranslateManager : MonoBehaviour
     void Start()
     {
         Translator.ReadCSVFile();
-      
+        
     }
   
 

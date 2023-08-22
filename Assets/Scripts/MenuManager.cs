@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button continieGame;
     [SerializeField] private CanvasGroup loadingCanvasGroup;
     [SerializeField] private RectTransform langContainer;
-    private float expandedHeight = 200f;
+    private float expandedHeight = 150f;
     private bool isExpanded = false;
     private void StartTransition()
     {
@@ -35,12 +35,19 @@ public class MenuManager : MonoBehaviour
         if (isExpanded)
         {
 
-            langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, 0f), 0.3f);
+            Sequence mySequence = DOTween.Sequence();
+            mySequence
+                .Append(langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, langContainer.sizeDelta.y- expandedHeight), 0.3f))
+                .Append(langContainer.DOMoveY(langContainer.position.y + 0.5f, 0.3f));
         }
         else
         {
+            Sequence mySequence = DOTween.Sequence();
+            mySequence
+                .Append(langContainer.DOMoveY(langContainer.position.y-0.5f, 0.3f))
+                .Append(langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, langContainer.sizeDelta.y+expandedHeight), 0.3f));
 
-            langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, expandedHeight), 0.3f);
+        
         }
 
         isExpanded = !isExpanded;
@@ -66,6 +73,12 @@ public class MenuManager : MonoBehaviour
         {
             continieGame.interactable = false;
         }
+
+        for (int i = 0;i<languageSprites.Length;i++) 
+        {
+
+        }
+
     }
     public void Play(int k)
     {
