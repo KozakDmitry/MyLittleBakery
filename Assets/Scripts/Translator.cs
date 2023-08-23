@@ -11,15 +11,18 @@ public static class Translator
     private static string fileName = "Languages.csv";
     private static string path = Application.dataPath + "/Localization/" + fileName;
     private static string choosedLanguage;
-    private static string phrase;
     private static string[] phrases;
     private enum Languages
     {
-        Russian,
-        English
+        Russian = 0,
+        English = 1,
     }
 
- 
+    public static int GetLanguagesCount()
+    {
+        int count = Enum.GetNames(typeof(Languages)).Length;
+        return count;
+    }
 
     public static string SelectStartLanguage()
     {

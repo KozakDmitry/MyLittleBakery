@@ -8,14 +8,12 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] Sprite[] volumeSprites,languageSprites;
+    [SerializeField] Sprite[] volumeSprites;
     [SerializeField] AudioSource audioMenu;
     [SerializeField] private GameObject firstUI,playUI,settingsUI;
     [SerializeField] private Button continieGame;
     [SerializeField] private CanvasGroup loadingCanvasGroup;
-    [SerializeField] private RectTransform langContainer;
-    private float expandedHeight = 150f;
-    private bool isExpanded = false;
+   
     private void StartTransition()
     {
         loadingCanvasGroup.interactable = true;
@@ -29,30 +27,6 @@ public class MenuManager : MonoBehaviour
 
      
     }
-
-    public void ToggleDropdown()
-    {
-        if (isExpanded)
-        {
-
-            Sequence mySequence = DOTween.Sequence();
-            mySequence
-                .Append(langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, langContainer.sizeDelta.y- expandedHeight), 0.3f))
-                .Append(langContainer.DOMoveY(langContainer.position.y + 0.5f, 0.3f));
-        }
-        else
-        {
-            Sequence mySequence = DOTween.Sequence();
-            mySequence
-                .Append(langContainer.DOMoveY(langContainer.position.y-0.5f, 0.3f))
-                .Append(langContainer.DOSizeDelta(new Vector2(langContainer.sizeDelta.x, langContainer.sizeDelta.y+expandedHeight), 0.3f));
-
-        
-        }
-
-        isExpanded = !isExpanded;
-    }
-
 
 
     private void OnLoadCompleted(AsyncOperation asyncOperation)
@@ -74,22 +48,9 @@ public class MenuManager : MonoBehaviour
             continieGame.interactable = false;
         }
 
-        for (int i = 0;i<languageSprites.Length;i++) 
-        {
-
-        }
 
     }
-    private void RefreshLanguage()
-    {
-
-    }
-
-    public void ChangeLanguage(string language) 
-    {
-        Translator.ChangeLanguage(language);
-        RefreshLanguage();
-    }
+   
     public void Play(int k)
     {
         switch (k)
