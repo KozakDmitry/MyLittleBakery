@@ -18,11 +18,16 @@ public static class Translator
         English = 1,
     }
 
+    public static string ReturnStringLanguage(int i) 
+    {
+        return Enum.GetName(typeof(Languages), i);
+    }
     public static int GetLanguagesCount()
     {
         int count = Enum.GetNames(typeof(Languages)).Length;
         return count;
     }
+   
 
     public static string SelectStartLanguage()
     {
