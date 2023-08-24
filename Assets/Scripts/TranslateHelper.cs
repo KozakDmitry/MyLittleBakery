@@ -8,8 +8,8 @@ public class TranslateHelper : MonoBehaviour
     private TranslateObj[] allTranslateObj;
 
 
-    private void Start()
+    public TranslateObj[] GetPhrases()
     {
-        TranslateManager.instance.AddObjects(allTranslateObj);
+        return allTranslateObj;
     }
 }

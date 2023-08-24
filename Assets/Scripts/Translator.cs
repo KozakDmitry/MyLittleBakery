@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using System.IO;
 using JetBrains.Annotations;
+using Mono.Cecil.Cil;
 
 public static class Translator
 {
@@ -20,7 +21,13 @@ public static class Translator
 
     public static string ReturnStringLanguage(int i) 
     {
-        return Enum.GetName(typeof(Languages), i);
+        Debug.Log(i);
+        if (Enum.GetName(typeof(Languages), i) != null) { return Enum.GetName(typeof(Languages), i); }
+
+        else
+        {
+            return Languages.Russian.ToString();
+        }
     }
     public static int GetLanguagesCount()
     {
@@ -59,6 +66,7 @@ public static class Translator
     }
     public static string SendPhrase(int num)
     {
+        Debug.Log(phrases[num].Split(';'));
         var data = phrases[num].Split(';');
 
         return data[ReturnLanguage()];
@@ -72,13 +80,14 @@ public static class Translator
     public static void ChangeLanguage(string choose)
     {
         choosedLanguage = choose;
+
         SaveLanguage();
     }
 
 
     public static void ReadCSVFile()
     {
-        Debug.Log(path);
+  
         phrases = File.ReadAllLines(path, Encoding.UTF8);
     }
 }

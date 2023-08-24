@@ -16,6 +16,9 @@ public class TranslateManager : MonoBehaviour
     private bool isExpanded = false;
     private List<GameObject> lanBlockList = new List<GameObject>();
 
+
+
+
     private void Awake()
     {
         if (instance == null)
@@ -27,6 +30,8 @@ public class TranslateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        TranslateHelper helper = (TranslateHelper)FindObjectOfType(typeof(TranslateHelper));
+        allTranslateObj = helper.GetPhrases();
         Translator.SelectStartLanguage();
     }
 
@@ -40,6 +45,7 @@ public class TranslateManager : MonoBehaviour
     {
         for (int i = 0; i < Translator.GetLanguagesCount(); i++)
         {
+            Debug.Log(i);
             GameObject langBlock =  Instantiate(languagePrefab, langContainer);
             Image picture = langBlock.GetComponent<Image>();
             picture.sprite = languageSprites[i];
@@ -81,7 +87,7 @@ public class TranslateManager : MonoBehaviour
 
     public void ChangeLanguage(string language,GameObject gm)
     {
-        print("Hi");
+        Debug.Log(language);
         Translator.ChangeLanguage(language);
         gm.transform.SetAsFirstSibling();
         ChangeLan();
