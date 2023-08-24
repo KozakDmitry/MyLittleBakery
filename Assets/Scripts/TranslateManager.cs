@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TranslateManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class TranslateManager : MonoBehaviour
     [SerializeField] private GameObject languagePrefab;
     [SerializeField] private RectTransform langContainer;
     [SerializeField] private Sprite[] languageSprites;
-    private float expandedHeight = 150f;
+    private float expandedHeight;
     private bool isExpanded = false;
     private List<GameObject> lanBlockList = new List<GameObject>();
 
@@ -40,13 +41,15 @@ public class TranslateManager : MonoBehaviour
         Translator.ReadCSVFile();
         GenerateFirstLanguages();
     }
-
+  
     public void GenerateFirstLanguages() 
     {
+        expandedHeight = 0;
         for (int i = 0; i < Translator.GetLanguagesCount(); i++)
         {
             Debug.Log(i);
             GameObject langBlock =  Instantiate(languagePrefab, langContainer);
+            expandedHeight += langBlock.GetComponent<RectTransform>().rect.height-10;
             Image picture = langBlock.GetComponent<Image>();
             picture.sprite = languageSprites[i];
             picture.raycastTarget = false;
@@ -87,7 +90,6 @@ public class TranslateManager : MonoBehaviour
 
     public void ChangeLanguage(string language,GameObject gm)
     {
-        Debug.Log(language);
         Translator.ChangeLanguage(language);
         gm.transform.SetAsFirstSibling();
         ChangeLan();

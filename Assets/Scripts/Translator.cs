@@ -66,7 +66,6 @@ public static class Translator
     }
     public static string SendPhrase(int num)
     {
-        Debug.Log(phrases[num].Split(';'));
         var data = phrases[num].Split(';');
 
         return data[ReturnLanguage()];
