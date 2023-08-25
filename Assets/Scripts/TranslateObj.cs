@@ -7,22 +7,23 @@ using UnityEngine.UI;
 public class TranslateObj : MonoBehaviour
 {
     public int numText;
+    private bool startedActive = false;
 
     TextMeshProUGUI text;
     private void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
-
+        startedActive = gameObject.activeSelf;
     }
     private void OnEnable()
     {
-        try
-        {
+        if (!startedActive)
+        {         
             ChangeText(Translator.SendPhrase(numText));
         }
-        catch
+        else
         {
-            Debug.Log(gameObject.name + " ebana ");
+            startedActive = true;
         }
        
     }
@@ -30,12 +31,15 @@ public class TranslateObj : MonoBehaviour
     {
         try
         {
-            text.text = textMessage;
+            if (gameObject.activeInHierarchy)
+            {
+                text.text = textMessage;
+            }
         }
-        catch 
+        catch
         {
-            Debug.Log(gameObject.name + ": " + textMessage);
+            Debug.Log(gameObject.name + " ebana ");
         }
-       
+
     }
 }
