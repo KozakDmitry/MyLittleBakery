@@ -31,18 +31,13 @@ public class TranslateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        TranslateHelper helper = (TranslateHelper)FindObjectOfType(typeof(TranslateHelper));
-        allTranslateObj = helper.GetPhrases();
+       
         Translator.SelectStartLanguage();
         Translator.ReadCSVFile();
+
         GenerateFirstLanguages();
     }
-
-    void Start()
-    {
-       
-    }
-  
+    
     public void GenerateFirstLanguages() 
     {
         expandedHeight = 0;
@@ -93,7 +88,7 @@ public class TranslateManager : MonoBehaviour
     {
         Translator.ChangeLanguage(language);
         gm.transform.SetAsFirstSibling();
-        ChangeLan();
+        Translator.UpdatePhrases();
         ToggleDropdown();
     }
 
@@ -101,13 +96,7 @@ public class TranslateManager : MonoBehaviour
     public void AddObjects(TranslateObj[] NewTranslateObj)
     {
         allTranslateObj = NewTranslateObj;
-        ChangeLan();
+        Translator.UpdatePhrases();
     }
-    public void ChangeLan()
-    {
-        foreach (TranslateObj obj in allTranslateObj)
-        {
-            obj.ChangeText(Translator.SendPhrase(obj.numText));
-        }
-    }
+   
 }

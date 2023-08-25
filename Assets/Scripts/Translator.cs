@@ -6,6 +6,7 @@ using UnityEngine;
 using System.IO;
 using JetBrains.Annotations;
 using Mono.Cecil.Cil;
+using static Translator;
 
 public static class Translator
 {
@@ -13,12 +14,17 @@ public static class Translator
     private static string path = Application.dataPath + "/Localization/" + fileName;
     private static string choosedLanguage;
     private static string[] phrases;
+    public delegate void UpdateLangEvent();
+    public static event UpdateLangEvent UpdateLanguage = delegate { };
     private enum Languages
     {
         Russian = 0,
         English = 1,
     }
-
+    public static void UpdatePhrases()
+    {
+        UpdateLanguage();
+    }
     public static string ReturnStringLanguage(int i) 
     {
         if (Enum.GetName(typeof(Languages), i) != null) { return Enum.GetName(typeof(Languages), i); }

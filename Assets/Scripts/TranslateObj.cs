@@ -4,42 +4,37 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TranslateObj : MonoBehaviour
+public class TranslateObj : MonoBehaviour,ITranslate
 {
     public int numText;
-    private bool startedActive = false;
 
     TextMeshProUGUI text;
     private void Awake()
     {
+        Translator.UpdateLanguage += ChangeText;
         text = GetComponent<TextMeshProUGUI>();
-        startedActive = gameObject.activeSelf;
     }
     private void OnEnable()
-    {
-        if (!startedActive)
-        {         
-            ChangeText(Translator.SendPhrase(numText));
-        }
-        else
-        {
-            startedActive = true;
-        }
-       
+    {      
+        ChangeText();
     }
-    public void ChangeText(string textMessage)
+    private void OnDestroy()
     {
+        Translator.UpdateLanguage -= ChangeText;
+    }
+    public void ChangeText()
+    {
+
         try
         {
             if (gameObject.activeInHierarchy)
             {
-                text.text = textMessage;
+                text.text = Translator.SendPhrase(numText);
             }
         }
         catch
         {
-            Debug.Log(gameObject.name + " ebana ");
+            Debug.Log(gameObject.name);
         }
-
     }
 }
