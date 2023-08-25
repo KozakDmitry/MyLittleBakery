@@ -37,7 +37,12 @@ public class TranslateManager : MonoBehaviour
 
         GenerateFirstLanguages();
     }
-    
+
+    public void OnEnable()
+    {
+        UpdateLangBlock();
+    }
+
     public void GenerateFirstLanguages() 
     {
         expandedHeight = 0;
@@ -55,6 +60,17 @@ public class TranslateManager : MonoBehaviour
             myButton.interactable = false;
         }
     }
+
+    private void UpdateLangBlock()
+    {
+        Debug.Log("Hi");
+        for(int i = 0;i < lanBlockList.Count; i++)
+        {
+            lanBlockList[i].transform.SetSiblingIndex(i);
+        }
+    }
+
+    
     public void ToggleDropdown()
     {
         if (isExpanded)
@@ -87,7 +103,9 @@ public class TranslateManager : MonoBehaviour
     public void ChangeLanguage(string language,GameObject gm)
     {
         Translator.ChangeLanguage(language);
-        gm.transform.SetAsFirstSibling();
+        gm.transform.SetAsFirstSibling();    
+        lanBlockList.RemoveAt(lanBlockList.IndexOf(gm));
+        lanBlockList.Insert(0, gm);
         Translator.UpdatePhrases();
         ToggleDropdown();
     }

@@ -34,7 +34,7 @@ public class TranslateObj : MonoBehaviour,ITranslate
         }
         catch
         {
-            Debug.Log(gameObject.name);
+            //Debug.Log(gameObject.name);
         }
     }
 }
