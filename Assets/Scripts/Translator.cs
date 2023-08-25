@@ -21,7 +21,6 @@ public static class Translator
 
     public static string ReturnStringLanguage(int i) 
     {
-        Debug.Log(i);
         if (Enum.GetName(typeof(Languages), i) != null) { return Enum.GetName(typeof(Languages), i); }
 
         else
@@ -66,7 +65,7 @@ public static class Translator
     }
     public static string SendPhrase(int num)
     {
-        var data = phrases[num].Split(';');
+        var data = phrases[num-1].Split(';');
 
         return data[ReturnLanguage()];
     }

@@ -697,8 +697,9 @@ GameObject:
   - component: {fileID: 492122488}
   - component: {fileID: 492122490}
   - component: {fileID: 492122489}
+  - component: {fileID: 492122491}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: VolumeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,6 +822,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 492122487}
   m_CullTransparentMesh: 1
+--- !u!114 &492122491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492122487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247f0595753517d45b19dac52cad25c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numText: 17
 --- !u!1 &591004625
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +873,7 @@ MonoBehaviour:
   - {fileID: 1251466726}
   - {fileID: 599979374}
   - {fileID: 1136501072}
+  - {fileID: 492122491}
 --- !u!4 &591004627
 Transform:
   m_ObjectHideFlags: 0
@@ -1773,7 +1788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2632912468941282270, guid: dae78393136873a49bde7570498943a3, type: 3}
       propertyPath: m_Name
-      value: BackToMenuText
+      value: BackToMenuSetText
       objectReference: {fileID: 0}
     - target: {fileID: 2632912469674991906, guid: dae78393136873a49bde7570498943a3, type: 3}
       propertyPath: m_Name
@@ -2010,7 +2025,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1222196115}
-  - component: {fileID: 1222196116}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -2040,19 +2054,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1222196116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222196114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247f0595753517d45b19dac52cad25c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numText: 0
 --- !u!1001 &1251466724
 PrefabInstance:
   m_ObjectHideFlags: 0

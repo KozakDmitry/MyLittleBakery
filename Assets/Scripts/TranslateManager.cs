@@ -34,12 +34,13 @@ public class TranslateManager : MonoBehaviour
         TranslateHelper helper = (TranslateHelper)FindObjectOfType(typeof(TranslateHelper));
         allTranslateObj = helper.GetPhrases();
         Translator.SelectStartLanguage();
+        Translator.ReadCSVFile();
+        GenerateFirstLanguages();
     }
 
     void Start()
     {
-        Translator.ReadCSVFile();
-        GenerateFirstLanguages();
+       
     }
   
     public void GenerateFirstLanguages() 
@@ -47,14 +48,14 @@ public class TranslateManager : MonoBehaviour
         expandedHeight = 0;
         for (int i = 0; i < Translator.GetLanguagesCount(); i++)
         {
-            Debug.Log(i);
+            int index = i;
             GameObject langBlock =  Instantiate(languagePrefab, langContainer);
             expandedHeight += langBlock.GetComponent<RectTransform>().rect.height-10;
             Image picture = langBlock.GetComponent<Image>();
             picture.sprite = languageSprites[i];
             picture.raycastTarget = false;
             Button myButton = langBlock.GetComponent<Button>();
-            myButton.onClick.AddListener(() => ChangeLanguage(Translator.ReturnStringLanguage(i), langBlock));
+            myButton.onClick.AddListener(() => ChangeLanguage(Translator.ReturnStringLanguage(index), langBlock));
             lanBlockList.Add(langBlock);
             myButton.interactable = false;
         }
