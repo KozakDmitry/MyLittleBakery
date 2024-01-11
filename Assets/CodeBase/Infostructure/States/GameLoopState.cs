@@ -1,11 +1,10 @@
-﻿
-namespace CodeBase.States
+﻿namespace Assets.CodeBase.Infostructure.States
 {
-    public class BootstrapState : IState
+    public class GameLoopState : IState
     {
         private readonly GameStateMachine _stateMachine;
 
-        public BootstrapState(GameStateMachine gameStateMachine)
+        public GameLoopState(GameStateMachine gameStateMachine)
         {
             _stateMachine = gameStateMachine;
         }

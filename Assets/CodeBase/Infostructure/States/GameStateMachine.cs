@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.States
+namespace Assets.CodeBase.Infostructure.States
 {
     public class GameStateMachine : IGameStateMachine
     {
         private readonly Dictionary<Type, IExitableState> _states;
+        private readonly SceneLoader sceneLoader;
         private IExitableState _activeState;
 
 
-        public GameStateMachine()
+        public GameStateMachine(SceneLoader sceneLoader)
         {
             _states = new Dictionary<Type, IExitableState>
             {
@@ -21,6 +22,7 @@ namespace CodeBase.States
                 [typeof(GameLoopState)] = new GameLoopState(this)
 
             };
+            this.sceneLoader = sceneLoader;
         }
 
         public void Enter<TState>() where TState : class, IState

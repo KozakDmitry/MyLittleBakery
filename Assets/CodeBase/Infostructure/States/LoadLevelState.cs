@@ -1,10 +1,10 @@
-﻿namespace CodeBase.States
+﻿namespace Assets.CodeBase.Infostructure.States
 {
-    public class GameLoopState : IState
+    public class LoadLevelState : IState
     {
         private readonly GameStateMachine _stateMachine;
 
-        public GameLoopState(GameStateMachine gameStateMachine)
+        public LoadLevelState(GameStateMachine gameStateMachine)
         {
             _stateMachine = gameStateMachine;
         }

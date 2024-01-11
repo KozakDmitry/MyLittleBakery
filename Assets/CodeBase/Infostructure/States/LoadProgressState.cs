@@ -1,4 +1,4 @@
-﻿namespace CodeBase.States
+﻿namespace Assets.CodeBase.Infostructure.States
 {
     public class LoadProgressState : IState
     {
