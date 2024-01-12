@@ -1,4 +1,5 @@
 ﻿
+using Assets.CodeBase.Infostructure.Services;
 using Assets.CodeBase.Infostructure.States;
 
 namespace Assets.CodeBase.Infostructure
@@ -9,7 +10,7 @@ namespace Assets.CodeBase.Infostructure
 
         public Game(ICoroutineRunner coroutineRunner)
         {
-            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
+            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), AllServices.Container);
         }
     }
 }

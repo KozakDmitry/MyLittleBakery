@@ -1,3 +1,4 @@
+using Assets.CodeBase.Infostructure.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Assets.CodeBase.Infostructure.States
         private IExitableState _activeState;
 
 
-        public GameStateMachine(SceneLoader sceneLoader)
+        public GameStateMachine(SceneLoader sceneLoader, AllServices services)
         {
             _states = new Dictionary<Type, IExitableState>
             {
-                [typeof(BootstrapState)] = new BootstrapState(this),
+                [typeof(BootstrapState)] = new BootstrapState(this,services),
                 [typeof(LoadProgressState)] = new LoadProgressState(this),
                 [typeof(LoadLevelState)] = new LoadLevelState(this),
                 [typeof(GameLoopState)] = new GameLoopState(this)
