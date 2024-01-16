@@ -1,4 +1,6 @@
 using Assets.CodeBase.Infostructure.Services;
+using Assets.CodeBase.Infostructure.Services.ProgressService;
+using Assets.CodeBase.Infostructure.Services.SaveLoadService;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace Assets.CodeBase.Infostructure.States
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this,services),
-                [typeof(LoadProgressState)] = new LoadProgressState(this),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IProgressService>(), services.Single<ISaveLoadService>()),
                 [typeof(LoadLevelState)] = new LoadLevelState(this,loadingScreen, sceneLoader),
                 [typeof(GameLoopState)] = new GameLoopState(this)
 
@@ -41,13 +43,13 @@ namespace Assets.CodeBase.Infostructure.States
         }
         private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
+
+
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
-
+            TState state = ChangeState<TState>();
+            state.Enter(payload);
         }
-        public void Exit<TState>() where TState: class, IState
-        {
-            
-        }
+      
     }
 }

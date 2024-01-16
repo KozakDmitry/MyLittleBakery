@@ -1,8 +1,10 @@
-﻿namespace Assets.CodeBase.Infostructure.Services.SaveLoadService
+﻿using Assets.CodeBase.Data;
+
+namespace Assets.CodeBase.Infostructure.Services.SaveLoadService
 {
     public interface ISaveLoadService : IService
     {
-        void LoadAll();
+        PlayerData LoadAll();
         void SaveAll();
     }
 }

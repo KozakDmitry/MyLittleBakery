@@ -25,7 +25,7 @@ namespace Assets.CodeBase.Infostructure.States
         {
             InitUIRoot();
             InitLocalization();
-            _stateMachine.Enter<LoadProgressState>();
+            _stateMachine.Enter<GameLoopState>();
         }
 
         private void InitUIRoot()
