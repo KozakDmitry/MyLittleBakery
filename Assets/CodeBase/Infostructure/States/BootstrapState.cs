@@ -1,5 +1,7 @@
 ﻿
 using Assets.CodeBase.Infostructure.Services;
+using Assets.CodeBase.Infostructure.Services.ProgressService;
+using Assets.CodeBase.Infostructure.Services.SaveLoadService;
 using System;
 
 namespace Assets.CodeBase.Infostructure.States
@@ -19,7 +21,8 @@ namespace Assets.CodeBase.Infostructure.States
 
         private void RegisterServices()
         {
-            
+            _services.RegisterSingle<IProgressService>(new ProgressService());
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService());
         }
 
         public void Enter()

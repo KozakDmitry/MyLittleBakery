@@ -13,13 +13,13 @@ namespace Assets.CodeBase.Infostructure.States
         private IExitableState _activeState;
 
 
-        public GameStateMachine(SceneLoader sceneLoader, AllServices services)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingScreen loadingScreen,AllServices services)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this,services),
                 [typeof(LoadProgressState)] = new LoadProgressState(this),
-                [typeof(LoadLevelState)] = new LoadLevelState(this),
+                [typeof(LoadLevelState)] = new LoadLevelState(this,loadingScreen, sceneLoader),
                 [typeof(GameLoopState)] = new GameLoopState(this)
 
             };

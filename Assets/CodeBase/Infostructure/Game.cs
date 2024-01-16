@@ -8,9 +8,9 @@ namespace Assets.CodeBase.Infostructure
     {
         public GameStateMachine _stateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner)
+        public Game(ICoroutineRunner coroutineRunner, LoadingScreen loadingScreen)
         {
-            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), AllServices.Container);
+            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), loadingScreen, AllServices.Container);
         }
     }
 }
